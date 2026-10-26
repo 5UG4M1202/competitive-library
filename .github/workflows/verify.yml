@@ -1,0 +1,40 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up competitive-verifier
+        uses: competitive-verifier/actions/setup@v2
+        with:
+          python-version: "3.13"
+          cache-pip: true
+
+      - name: Resolve verification files
+        id: resolve
+        uses: competitive-verifier/actions/oj-resolve@v2
+        with:
+          include: |
+            library
+            verify
+          config: .competitive-verifier/config.toml
+          output-path: ${{ runner.temp }}/verify-files.json
+
+      - name: Verify
+        uses: competitive-verifier/actions/verify@v2
+        with:
+          verify-files: ${{ steps.resolve.outputs.json-path }}
+          destination: ${{ runner.temp }}/verify-result.json
+          write-summary: true
+          check: true
