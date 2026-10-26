@@ -1,0 +1,4 @@
+interface:
+  display_name: "CP Library Extend"
+  short_description: "Extend library APIs with compatibility checks"
+  default_prompt: "Use $cp-library-extend to extend an existing component safely."

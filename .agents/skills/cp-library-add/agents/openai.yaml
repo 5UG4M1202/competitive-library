@@ -1,0 +1,4 @@
+interface:
+  display_name: "CP Library Add"
+  short_description: "Add focused competitive-programming components"
+  default_prompt: "Use $cp-library-add to add a focused component with docs and tests."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CP Library Verify"
+  short_description: "Build trustworthy tests and verifier integration"
+  default_prompt: "Use $cp-library-verify to add trustworthy verification for a component."

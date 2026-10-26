@@ -1,0 +1,4 @@
+interface:
+  display_name: "CP Library Review"
+  short_description: "Review library code for reproducible defects"
+  default_prompt: "Use $cp-library-review to review a component for reproducible bugs."

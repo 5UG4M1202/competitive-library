@@ -1,0 +1,4 @@
+interface:
+  display_name: "CP Library Release Check"
+  short_description: "Run a read-only competitive-library release preflight"
+  default_prompt: "Use $cp-library-release-check to inspect release readiness without publishing."
