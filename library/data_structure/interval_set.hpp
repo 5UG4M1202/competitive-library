@@ -9,8 +9,12 @@
 #include <set>
 #include <vector>
 
-// A legacy-compatible interval map extracted from cpp.json's @interval_set
-// snippet. Managed intervals are half-open: [l, r).
+// Portions adapted from drken1215/algorithm's IntervalSet (CC0-1.0):
+// https://github.com/drken1215/algorithm/blob/79b5a6a826690c4d8e0bd64e812e85b5f425ea6b/DataStructureBasic/intervals_set.cpp
+// Copyright 2026 rrrriki for local additions and modifications, licensed under
+// Apache-2.0. Upstream CC0 rights remain. See THIRD_PARTY_NOTICES.md and
+// LICENSE-SCOPE.md. This is a legacy-compatible extraction from cpp.json's
+// @interval_set snippet. Managed intervals are half-open: [l, r).
 template <class T, class VAL = long long>
 struct IntervalSet {
   struct Node {

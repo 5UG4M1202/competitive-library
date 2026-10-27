@@ -54,6 +54,9 @@ jobs:
           destination: _jekyll
           write-summary: true
 
+      - name: Copy license and attribution notices
+        run: cp LICENSE LICENSE-SCOPE.md NOTICE THIRD_PARTY_NOTICES.md _jekyll/
+
       - name: Build documentation site
         uses: actions/jekyll-build-pages@v1
         with:

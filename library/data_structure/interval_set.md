@@ -54,4 +54,10 @@ boundary test には上記 3 件の「現在挙動」の characterization も含
 
 適切に IntervalSet 自体を検証する Library Checker / AOJ 問題はまだ選定していません。無関係な問題を `PROBLEM` に割り当てる代わりに、現時点では `STANDALONE` テストを正とします。
 
-由来: `cpp.json` の `@interval_set`。元コメントに記録されていた参考提出は <https://atcoder.jp/contests/abc435/submissions/71576816> です。
+## 由来とライセンス
+
+`cpp.json` の `@interval_set` から抽出しました。元コメントに記録されていた参考提出は <https://atcoder.jp/contests/abc435/submissions/71576816> です。
+
+IntervalSet の中核は [drken1215/algorithm の `intervals_set.cpp`](https://github.com/drken1215/algorithm/blob/79b5a6a826690c4d8e0bd64e812e85b5f425ea6b/DataStructureBasic/intervals_set.cpp) を参考・改変した可能性が高く、上流は CC0 1.0 Universal です。`Node`、vector コンストラクタ、検索、mex、callback 付き update/erase、`emplace_hint` を使う分割・結合順序に特徴的な共通点があります。リンク先は今回比較した版であり、実際に参照した正確な過去 revision は確定していません。
+
+ローカルでの主な追加・変更は、standalone include、`std::` 修飾、const overload、`total_cover`、`covered_all`、`covered_length_in`、`contained_intervals_in`、文書、検証テストです。元の CC0 部分は CC0 のまま利用でき、Apache-2.0 は rrrriki の著作物性のある追加・改変だけに適用されます。詳細は [`../../THIRD_PARTY_NOTICES.md`](../../THIRD_PARTY_NOTICES.md) と [`../../LICENSE-SCOPE.md`](../../LICENSE-SCOPE.md) を参照してください。

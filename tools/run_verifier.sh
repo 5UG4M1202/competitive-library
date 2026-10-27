@@ -41,6 +41,8 @@ COMPETITIVE_VERIFY_FILES_PATH="$verify_files" \
     --docs .competitive-verifier/docs \
     --destination "$jekyll_directory"
 
+cp LICENSE LICENSE-SCOPE.md NOTICE THIRD_PARTY_NOTICES.md "$jekyll_directory/"
+
 printf 'verify files: %s\n' "$verify_files"
 printf 'verify result: %s\n' "$verify_result"
 printf 'generated Jekyll source: %s\n' "$jekyll_directory"

@@ -17,7 +17,7 @@ python3 -m venv /tmp/competitive-library-verifier-venv
 PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.sh
 ```
 
-`tools/run_verifier.sh` は `oj-resolve`、`verify --check-error`、`docs` を順番に実行し、既定では `verify-files.json`、`verify-result.json`、Jekyll source、bundle・cache 用の `runtime/` をOSの一時ディレクトリへ出力します。第一引数に出力ディレクトリを渡すこともできます。生成物はリポジトリへ追加しません。完成HTMLのローカルbuildには別途BundlerとJekyllが必要です。
+`tools/run_verifier.sh` は `oj-resolve`、`verify --check-error`、`docs` を順番に実行し、既定では `verify-files.json`、`verify-result.json`、Jekyll source、bundle・cache 用の `runtime/` をOSの一時ディレクトリへ出力します。第一引数に出力ディレクトリを渡すこともできます。生成物はリポジトリへ追加しません。生成した Jekyll source には root の `LICENSE`、`LICENSE-SCOPE.md`、`NOTICE`、`THIRD_PARTY_NOTICES.md` もコピーし、project と生成テンプレートの通知を保持します。完成HTMLのローカルbuildには別途BundlerとJekyllが必要です。
 
 簡易ローカル実行は `tools/run_local_tests.ps1` を利用できます。Visual Studio の場合は Developer PowerShell で実行するか、`-Compiler cl` を指定してください。
 
