@@ -1,4 +1,5 @@
 // competitive-verifier: STANDALONE
+// competitive-verifier: DISPLAY no-index
 
 #include <algorithm>
 #include <cassert>

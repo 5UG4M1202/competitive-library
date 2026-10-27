@@ -1,4 +1,5 @@
 // competitive-verifier: STANDALONE
+// competitive-verifier: DISPLAY no-index
 
 #include <cassert>
 #include <tuple>

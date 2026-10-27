@@ -9,8 +9,7 @@
 - Run from the repository root:
   - `powershell -ExecutionPolicy Bypass -File tools/check_legacy_snapshot.ps1`
   - `powershell -ExecutionPolicy Bypass -File tools/run_local_tests.ps1`
-  - when installed: `competitive-verifier oj-resolve --include library verify --config .competitive-verifier/config.toml > verify-files.json`
-  - when installed: set `COMPETITIVE_VERIFY_FILES_PATH=verify-files.json`, then run `competitive-verifier verify --check-error`
+  - when `competitive-verifier` is already installed: `bash tools/run_verifier.sh`; it writes resolve, verify, and generated documentation outputs to a temporary directory by default.
 - Do not install tools, push, open a PR, publish a Release, enable Pages, or change repository/account settings unless the user explicitly requests that action.
 - Follow [`docs/commit-conventions.md`](docs/commit-conventions.md) when proposing or creating commits. The convention classifies messages and change units; it does not authorize staging, committing, pushing, or changing `cpp.json`.
 - Treat `.github/workflows/verify.yml` as a reviewed draft until it has run successfully in GitHub Actions.
