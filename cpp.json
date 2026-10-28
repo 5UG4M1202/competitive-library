@@ -1742,6 +1742,13 @@
 	"@RBST": {
 		"prefix": "@RBST",
 		"body": [
+			"// Adapted from NyaanNyaan/library at commit",
+			"// b3981adc80a800b2584980b01821324ea6c77183 (CC0-1.0):",
+			"// https://github.com/NyaanNyaan/library/tree/b3981adc80a800b2584980b01821324ea6c77183/rbst",
+			"// Copyright 2026 rrrriki for copyrightable local additions and modifications,",
+			"// licensed under Apache-2.0. Upstream CC0 rights remain. When redistributing,",
+			"// see LICENSE-SCOPE.md and THIRD_PARTY_NOTICES.md in this repository.",
+			"",
 			"/// @brief 乱択平衡二分木(基底クラス)",
 			"template <typename Node>",
 			"struct RBSTBase {",
