@@ -10,6 +10,7 @@ description: Add, repair, or assess competitive-programming library tests and co
 3. Run the available compiler and deterministic local tests. Do not change production code unless the user separately authorizes a fix.
 4. Use `PROBLEM` only for a supported problem that actually models the target API. Otherwise use `STANDALONE` or `LOCALCASE` and state why no judge-backed test was added.
 5. Before changing verifier integration, confirm the current official `STANDALONE`, `LOCALCASE`, `PROBLEM`, and `documentation_of` interfaces. Keep GitHub Actions configured so test failures fail the job; do not rely on a default that skips checks.
-6. Report separately what was executed, what was only drafted, and what was not tested.
+6. For a mapped maintained snippet, verify its JSON shape, provenance notices, mapped implementation consistency, and representative template compilation without changing unrelated entries.
+7. Report separately what was executed, what was only drafted, and what was not tested.
 
-Do not install verification tools, enable Pages, change settings, modify `cpp.json`, or publish without separate explicit authorization.
+Do not install verification tools, enable Pages, change settings, modify unresolved snippet entries or the external live snippet, or publish without separate explicit authorization.

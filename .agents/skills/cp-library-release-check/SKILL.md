@@ -7,7 +7,7 @@ description: Run a read-only preflight for a competitive-library commit, tag, ar
 
 1. Establish the exact intended files, version, tag, artifact, and publication scope. Read `AGENTS.md`, `docs/maintenance.md`, and `docs/commit-conventions.md`.
 2. Inspect tracked, staged, modified, and untracked files separately. Never assume every untracked proposal belongs in the release.
-3. Check relevant documentation and tests, and verify the legacy snapshot remains unchanged when it is in scope.
+3. Check relevant documentation and tests. For maintained snippet mappings, verify header/snippet consistency, notices, and intended entry-only changes; treat unresolved legacy entries separately rather than accepting an arbitrary whole-file hash change.
 4. Inspect both author and committer identity for privacy-safe names and email addresses. Do not print credentials or unnecessary personal data.
 5. Treat provenance, third-party attribution, and license uncertainty separately from correctness; do not certify them without evidence.
 6. Check the proposed commit classification and coherent change unit against `docs/commit-conventions.md`, then check tag, version, source URL, intended commit, artifact contents, and hashes for consistency. Report blockers, readiness, evidence, checks actually run, and checks not run.

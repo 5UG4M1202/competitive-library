@@ -5,7 +5,7 @@
 - `local/`: `competitive-verifier: STANDALONE` の決定的ユニットテスト。
 - `aoj/`, `yosupo/`: 実際に適合する問題が見つかった時だけ追加する judge-backed test。空ディレクトリは作りません。
 
-IntervalSet に自然に対応する公開問題は今回選定していません。無関係な問題を `PROBLEM` に指定するより、境界テストと単純実装とのランダム比較を維持します。
+IntervalSet、LazyReversibleRBST、EulerTour の汎用 API 全体に自然に対応する公開問題は今回選定していません。無関係な問題を `PROBLEM` に指定するより、境界テストと単純実装とのランダム比較を維持します。
 
 ## Local setup
 
@@ -17,13 +17,23 @@ python3 -m venv /tmp/competitive-library-verifier-venv
 PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.sh
 ```
 
+EulerTour の検証には AtCoder Library が必要です。既存の ACL checkout を使う場合は、その親ディレクトリ（直下に `atcoder/` がある場所）を指定します。
+
+```sh
+export ACL_INCLUDE_PATH=/path/to/ac-library
+export CPLUS_INCLUDE_PATH="$ACL_INCLUDE_PATH${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}"
+PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.sh
+```
+
 `tools/run_verifier.sh` は `oj-resolve`、`verify --check-error`、`docs` を順番に実行し、既定では `verify-files.json`、`verify-result.json`、Jekyll source、bundle・cache 用の `runtime/` をOSの一時ディレクトリへ出力します。第一引数に出力ディレクトリを渡すこともできます。生成物はリポジトリへ追加しません。生成した Jekyll source には root の `LICENSE`、`LICENSE-SCOPE.md`、`NOTICE`、`THIRD_PARTY_NOTICES.md` もコピーし、project と生成テンプレートの通知を保持します。完成HTMLのローカルbuildには別途BundlerとJekyllが必要です。
 
 簡易ローカル実行は `tools/run_local_tests.ps1` を利用できます。Visual Studio の場合は Developer PowerShell で実行するか、`-Compiler cl` を指定してください。
 
+`tools/run_verifier.sh` は verifier の resolve より前に 3 本の `tools/check_*_snippet_sync.py` も実行します。これらは `cpp.json` を JSONC として読み、保守対象の `@interval_set`、`@RBST`、`@EulerT` が各ヘッダーの対応実装・来歴表示と一致することを確認し、代表テンプレートへ展開したコードをコンパイルして決定的な回帰を実行します。EulerTour の同期検査には上記の ACL include path が必要です。
+
 ## Documentation
 
-`library/data_structure/interval_set.md` の `documentation_of` は `interval_set.hpp` を指します。`.competitive-verifier/docs/index.md` が生成サイトのトップページ、`_config.yml` が日本語タイトル情報です。テストファイルは `DISPLAY no-index` により検証対象のまま索引から除外します。Doxygen は使用しません。
+各 sibling Markdown の `documentation_of` は対応ヘッダーを指します。EulerTour は `library/graph/euler_tour.md` から `euler_tour.hpp` へ関連付けます。`.competitive-verifier/docs/index.md` が生成サイトのトップページ、`_config.yml` が日本語タイトル情報です。テストファイルは `DISPLAY no-index` により検証対象のまま索引から除外します。Doxygen は使用しません。
 
 ## CI design
 

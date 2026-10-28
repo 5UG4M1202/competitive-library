@@ -17,12 +17,31 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check out AtCoder Library
+        uses: actions/checkout@v7
+        with:
+          repository: atcoder/ac-library
+          ref: v1.6
+          path: .third_party/ac-library
+          persist-credentials: false
+
+      - name: Configure AtCoder Library headers
+        run: |
+          echo "ACL_INCLUDE_PATH=$GITHUB_WORKSPACE/.third_party/ac-library" >> "$GITHUB_ENV"
+          echo "CPLUS_INCLUDE_PATH=$GITHUB_WORKSPACE/.third_party/ac-library" >> "$GITHUB_ENV"
+
       - name: Set up competitive-verifier
         uses: competitive-verifier/actions/setup@v2
         with:
           package: competitive-verifier==4.2.2
           python-version: "3.13"
           cache-pip: true
+
+      - name: Check maintained snippet synchronization
+        run: |
+          python3 tools/check_interval_set_snippet_sync.py
+          python3 tools/check_rbst_snippet_sync.py
+          python3 tools/check_euler_tour_snippet_sync.py
 
       - name: Resolve verification files
         id: resolve

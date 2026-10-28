@@ -10,6 +10,7 @@ description: Extend the API or capability of an existing competitive-programming
 3. Prefer the smallest extension that matches the existing conventions; avoid speculative abstractions.
 4. Preserve known quirks unless the user authorizes a bug fix. For an authorized fix, keep a minimal failing regression and distinguish the prior behavior from the intended result.
 5. Update the sibling documentation and add focused boundary and regression coverage with the code change.
-6. Run the repository commands in `AGENTS.md`; report compatibility decisions, results, and remaining gaps.
+6. If the component has a mapped maintained entry in `cpp.json`, synchronize only that entry from the header, retain its provenance/license notices and unrelated snippet metadata, then run the mapped snippet check.
+7. Run the repository commands in `AGENTS.md`; report compatibility decisions, results, and remaining gaps.
 
-Do not modify `cpp.json` or the live VS Code snippet. Do not publish or change repository settings without separate explicit authorization.
+Do not blanket-regenerate unresolved entries or modify the live VS Code snippet. Do not publish or change repository settings without separate explicit authorization.

@@ -12,4 +12,4 @@ description: Add a new independent competitive-programming library component, al
 5. Add boundary tests and, when useful, a deterministic comparison against a simple model. Add a judge-backed test only when the problem genuinely exercises the API.
 6. Run the repository commands in `AGENTS.md`; report what ran and what remains unexercised.
 
-Do not modify `cpp.json` or the live VS Code snippet. Do not install tools or publish repository changes unless the user separately authorizes that exact action.
+Do not create a new `cpp.json` entry unless the task requests one. If an established maintained mapping already exists, follow the repository synchronization policy; never modify unrelated entries or the external live snippet. Do not install tools or publish repository changes unless the user separately authorizes that exact action.

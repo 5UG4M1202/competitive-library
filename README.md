@@ -10,7 +10,7 @@
 - [`docs/commit-conventions.md`](docs/commit-conventions.md): コミットメッセージ、変更分類、分割単位の規約。
 - [`docs/license-and-contest-use.md`](docs/license-and-contest-use.md): ライセンスの適用範囲、配布時の注意、コンテスト規約との区別。
 - [`LICENSE`](LICENSE) / [`LICENSE-SCOPE.md`](LICENSE-SCOPE.md) / [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md): Apache-2.0 本文、適用範囲、第三者由来。
-- [`cpp.json`](cpp.json): 固定された legacy VS Code snippet snapshot。新規ヘッダーの生成元ではありません。
+- [`cpp.json`](cpp.json): 現行の VS Code snippet 集。保守対象として対応付けた項目は `library/` のヘッダーから同期し、未整理の項目は個別に扱います。
 
 ## AI / Codex で作業する
 
@@ -25,6 +25,8 @@
 ## 現在の vertical slice
 
 - [`IntervalSet`](library/data_structure/interval_set.md): 値付き半開区間 map。
+- [`LazyReversibleRBST`](library/data_structure/lazy_reversible_rbst.md): 列の挿入・削除・区間作用・反転を扱う乱択平衡二分木。
+- [`EulerTour`](library/graph/euler_tour.md): 根付き木の LCA、パス和、部分木和、重み更新。
 
 Union-Find は独自実装を増やさず、通常は AtCoder Library の `atcoder::dsu` を利用する方針です。
 
@@ -33,7 +35,9 @@ Union-Find は独自実装を増やさず、通常は AtCoder Library の `atcod
 PowerShell と C++20 コンパイラが利用できる環境では次を実行します。
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools/check_legacy_snapshot.ps1
+python3 tools/check_interval_set_snippet_sync.py
+python3 tools/check_rbst_snippet_sync.py
+python3 tools/check_euler_tour_snippet_sync.py  # AtCoder Library の include path が必要
 powershell -ExecutionPolicy Bypass -File tools/run_local_tests.ps1
 ```
 

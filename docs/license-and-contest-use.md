@@ -8,7 +8,9 @@
 
 - rrrriki が作成した新規ファイルと、著作物性のある追加・改変部分は、別記がなければ Apache License 2.0 です。
 - drken1215 由来の IntervalSet 本体部分は CC0 1.0 Universal のままです。Apache-2.0 は rrrriki の追加・改変にだけ適用され、元の CC0 の利用可能性を狭めません。
-- 固定 legacy snapshot の `cpp.json` は、他の出典確認が終わるまで一括 Apache-2.0 の対象外です。
+- NyaanNyaan/library 由来の LazyReversibleRBST 本体部分も CC0 1.0 Universal のままで、Apache-2.0 は rrrriki の追加・改変にだけ適用されます。
+- EulerTour は、ユーザー申告では @rrrrikiOW が GitHub Copilot の補助を使って作成したものです。Apache-2.0 は rrrriki の著作権保護を受ける人の創作部分に適用します。この申告だけで生成断片の著作物性や第三者権利が全面的に保証されるわけではなく、外部依存の AtCoder Library は CC0 1.0 Universal のままです。
+- `cpp.json` 全体は provenance が混在するため一括 Apache-2.0 の対象外です。保守対象の `@interval_set`、`@RBST`、`@EulerT` は個別の来歴と適用範囲を表示し、他の未確認エントリは対象外のままです。
 - 生成文書に含まれる competitive-verifier のテンプレート資源は MIT License です。
 
 ## Apache-2.0 対象コードを配布・改変するとき

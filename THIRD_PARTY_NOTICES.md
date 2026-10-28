@@ -39,6 +39,25 @@ The upstream portions remain available under CC0 1.0 Universal. Apache-2.0 in
 this repository applies only to rrrriki's copyrightable additions and
 modifications; it does not withdraw or narrow the upstream CC0 rights.
 
+### NyaanNyaan/library — LazyReversibleRBST
+
+- Reviewed source version: commit [`b3981adc80a800b2584980b01821324ea6c77183`](https://github.com/NyaanNyaan/library/tree/b3981adc80a800b2584980b01821324ea6c77183/rbst)
+- Upstream files: [`rbst-base.hpp`](https://github.com/NyaanNyaan/library/blob/b3981adc80a800b2584980b01821324ea6c77183/rbst/rbst-base.hpp) and [`lazy-reversible-rbst.hpp`](https://github.com/NyaanNyaan/library/blob/b3981adc80a800b2584980b01821324ea6c77183/rbst/lazy-reversible-rbst.hpp)
+- License: CC0 1.0 Universal
+- License evidence: <https://github.com/NyaanNyaan/library/blob/b3981adc80a800b2584980b01821324ea6c77183/LICENSE>
+
+`library/data_structure/lazy_reversible_rbst.hpp` and the maintained `@RBST`
+snippet contain the upstream randomized BST base, lazy/reversible node, and
+range-operation implementation. Local adaptations include standalone standard
+library includes, `std::` qualification, provenance comments, documentation,
+verification tests, and synchronization checks.
+
+The reviewed source is structurally the same implementation recorded by the
+legacy snippet. The exact historical revision originally copied into the
+snippet is not established. The upstream portions remain available under CC0
+1.0 Universal; Apache-2.0 applies only to rrrriki's copyrightable additions and
+modifications.
+
 ### competitive-verifier 4.2.2 — generated documentation resources
 
 - Project: <https://github.com/competitive-verifier/competitive-verifier>
@@ -75,28 +94,64 @@ notice.
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
 
+## User-reported provenance
+
+### EulerTour
+
+- Legacy snippet author tag: `@rrrrikiOW`
+- User report: written by the user with GitHub Copilot assistance
+- Concrete external implementation source named by the snippet: none
+- External build dependency: [AtCoder Library](https://github.com/atcoder/ac-library), CC0 1.0 Universal
+- ACL license evidence: <https://github.com/atcoder/ac-library/blob/v1.6/LICENSE>
+
+`library/graph/euler_tour.hpp` and the maintained `@EulerT` snippet preserve
+the existing API while adding standalone includes, namespace qualification,
+documentation, verification, and synchronization checks. The repository does
+not vendor ACL source; local validation used an existing ACL checkout of
+unknown exact revision, while the draft CI configuration pins release v1.6.
+
+This is a record of the user's provenance statement, not a certification that
+all generated fragments are copyrightable or free of third-party claims.
+Apache-2.0 applies only to rrrriki's copyrightable human-authored
+contributions. GitHub Copilot use alone is not treated as proof of complete
+ownership or provenance.
+
 ## Build and include dependencies not vendored here
 
 These entries describe dependencies or references; they are not claims that
 their source code is copied into the split IntervalSet header.
 
 - [AtCoder Library](https://github.com/atcoder/ac-library), CC0 1.0 Universal:
-  referenced by some snippets in the excluded `cpp.json`; no ACL source is
-  vendored in the current split library.
+  required by the maintained EulerTour and referenced by some unresolved
+  snippets in `cpp.json`; no ACL source is vendored in the split library.
 - [jekyll-theme-minimal](https://github.com/pages-themes/minimal), CC0 1.0
   Universal: selected by the documentation build environment; it is not
   vendored in this repository.
 
-## Frozen legacy snapshot with incomplete provenance
+## Legacy snippets with incomplete provenance
 
-`cpp.json` is excluded from the repository's blanket Apache-2.0 grant. Its 23
-snippets have mixed provenance and have not all been cleared for relicensing.
-Partial evidence currently includes:
+`cpp.json` is a current snippet collection with mixed provenance. The
+maintained `@interval_set` entry is synchronized from
+`library/data_structure/interval_set.hpp`: its adapted upstream core remains
+CC0 1.0 Universal, while Apache-2.0 applies only to rrrriki's copyrightable
+additions and modifications. Its source and split-license notice must remain in
+the snippet body.
 
-- `@RBST` has substantial structural similarity to
-  [Nyaan's library](https://github.com/NyaanNyaan/library), whose repository
-  license is CC0 1.0 Universal. Similarity does not establish the exact copied
-  revision or clear the remainder of the snapshot.
+The maintained `@RBST` entry is synchronized from
+`library/data_structure/lazy_reversible_rbst.hpp`: its NyaanNyaan/library core
+also remains CC0 1.0 Universal, while Apache-2.0 applies only to rrrriki's
+copyrightable additions and modifications. Its source and split-license notice
+must remain in the snippet body.
+
+The maintained `@EulerT` entry is synchronized from
+`library/graph/euler_tour.hpp` and retains the user-reported Copilot-assisted
+authorship statement, the absence of a concrete third-party implementation
+source in the legacy snippet, and the external ACL dependency notice.
+
+The other 20 snippets have not all been cleared for relicensing and remain
+excluded from the repository's blanket Apache-2.0 grant. Partial evidence
+currently includes:
+
 - Rolling-hash comments refer to a
   [Qiita article](https://qiita.com/keymoon/items/11fac5627672a6d6a9f6), while
   [ei1333's library](https://github.com/ei1333/library/blob/master/LICENSE) uses

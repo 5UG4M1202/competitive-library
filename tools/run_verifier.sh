@@ -9,6 +9,12 @@ if ! command -v competitive-verifier >/dev/null 2>&1; then
   exit 127
 fi
 
+if [[ -z "${ACL_INCLUDE_PATH:-}" || ! -d "$ACL_INCLUDE_PATH/atcoder" ]]; then
+  echo "Set ACL_INCLUDE_PATH to the AtCoder Library root containing atcoder/." >&2
+  exit 127
+fi
+export CPLUS_INCLUDE_PATH="$ACL_INCLUDE_PATH${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}"
+
 if [[ -z "$output_directory" ]]; then
   output_directory="$(mktemp -d)"
 else
@@ -25,6 +31,10 @@ mkdir -p "$runtime_directory"
 export COMPETITIVE_VERIFY_CONFIG_PATH="$runtime_directory"
 
 cd "$repository_root"
+
+python3 tools/check_interval_set_snippet_sync.py
+python3 tools/check_rbst_snippet_sync.py
+python3 tools/check_euler_tour_snippet_sync.py
 
 competitive-verifier oj-resolve \
   --include library verify \
