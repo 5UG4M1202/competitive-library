@@ -33,6 +33,16 @@ std::vector<ExpectedNode> build_expected(const std::vector<bool>& covered,
   return result;
 }
 
+long long expected_contained_in(const std::vector<ExpectedNode>& expected,
+                                int l, int r) {
+  if (l >= r) return 0;
+  long long result = 0;
+  for (const auto& node : expected) {
+    if (l <= node.l && node.r <= r) ++result;
+  }
+  return result;
+}
+
 }  // namespace
 
 int main() {
@@ -97,13 +107,8 @@ int main() {
       for (int p = ql; p < qr; ++p) length += covered[p] ? 1 : 0;
       assert(actual.covered_length_in(ql, qr) == length);
 
-      long long legacy_contained = 0;
-      for (const auto& node : expected) {
-        // Characterize the known bug rather than claiming intended
-        // correctness: a node starting exactly at ql is skipped.
-        legacy_contained += ql < node.l && node.r <= qr ? 1 : 0;
-      }
-      assert(actual.contained_intervals_in(ql, qr) == legacy_contained);
+      assert(actual.contained_intervals_in(ql, qr) ==
+             expected_contained_in(expected, ql, qr));
 
       bool one_interval = ql == qr;
       if (ql < qr) {
@@ -112,6 +117,24 @@ int main() {
         }
       }
       assert(actual.covered(ql, qr) == one_interval);
+    }
+
+    if (step % 97 == 0) {
+      std::vector<int> boundaries{0, n, l, r};
+      for (const auto& node : expected) {
+        boundaries.push_back(node.l);
+        boundaries.push_back(node.r);
+      }
+      std::sort(boundaries.begin(), boundaries.end());
+      boundaries.erase(std::unique(boundaries.begin(), boundaries.end()),
+                       boundaries.end());
+      for (const int ql : boundaries) {
+        for (const int qr : boundaries) {
+          if (ql > qr) continue;
+          assert(actual.contained_intervals_in(ql, qr) ==
+                 expected_contained_in(expected, ql, qr));
+        }
+      }
     }
 
     const int p = static_cast<int>(rng() % (n + 1));

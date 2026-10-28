@@ -30,9 +30,11 @@ int main() {
   assert(!intervals.covered(2, 8));
   assert(intervals.covered_length_in(0, 10) == 6);
   assert(intervals.contained_intervals_in(1, 8) == 3);
-  // Characterization, not intended correctness: the mathematical answer is
-  // 3, but legacy contained_intervals_in skips the node starting at L.
-  assert(intervals.contained_intervals_in(2, 8) == 2);
+  assert(intervals.contained_intervals_in(2, 8) == 3);
+  assert(intervals.contained_intervals_in(2, 7) == 2);
+  assert(intervals.contained_intervals_in(3, 8) == 2);
+  assert(intervals.contained_intervals_in(4, 8) == 1);
+  assert(intervals.contained_intervals_in(2, 2) == 0);
 
   intervals.erase(4, 7);
   assert(intervals.size() == 3);

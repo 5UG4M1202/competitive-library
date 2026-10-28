@@ -150,8 +150,7 @@ struct IntervalSet {
   long long contained_intervals_in(const T& L, const T& R) const {
     if (L >= R) return 0;
     long long cnt = 0;
-    auto it =
-        S.lower_bound(Node(L, std::numeric_limits<T>::max(), identity));
+    auto it = S.lower_bound(Node(L, L, identity));
     for (; it != S.end() && it->l < R; ++it) {
       if (L <= it->l && it->r <= R) ++cnt;
     }
