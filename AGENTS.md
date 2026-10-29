@@ -11,6 +11,7 @@
   - `python3 tools/check_interval_set_snippet_sync.py`
   - `python3 tools/check_rbst_snippet_sync.py`
   - `python3 tools/check_euler_tour_snippet_sync.py` (AtCoder Library の include path が必要)
+  - `python3 tools/check_unresolved_snippet_sync.py` (AtCoder Library の include path が必要)
   - `powershell -ExecutionPolicy Bypass -File tools/run_local_tests.ps1`
   - when `competitive-verifier` is already installed: `bash tools/run_verifier.sh`; it writes resolve, verify, and generated documentation outputs to a temporary directory by default.
 - Do not install tools, push, open a PR, publish a Release, enable Pages, or change repository/account settings unless the user explicitly requests that action.

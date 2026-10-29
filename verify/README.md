@@ -29,9 +29,11 @@ PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.
 
 簡易ローカル実行は `tools/run_local_tests.ps1` を利用できます。Visual Studio の場合は Developer PowerShell で実行するか、`-Compiler cl` を指定してください。
 
-`tools/run_verifier.sh` は verifier の resolve より前に 3 本の `tools/check_*_snippet_sync.py` も実行します。これらは `cpp.json` を JSONC として読み、保守対象の `@interval_set`、`@RBST`、`@EulerT` が各ヘッダーの対応実装・来歴表示と一致することを確認し、代表テンプレートへ展開したコードをコンパイルして決定的な回帰を実行します。EulerTour の同期検査には上記の ACL include path が必要です。
+`tools/run_verifier.sh` は verifier の resolve より前に4本の同期検査を実行します。これらは `cpp.json` を JSONC として読み、保守対象6件が各ヘッダーの対応実装・来歴表示と一致することを確認し、展開したコードをコンパイルして決定的な回帰を実行します。EulerTour と DistinctKSegments の同期検査には上記の ACL include path が必要です。
 
 ## Documentation
+
+追加された `mydate`、`DistinctKSegments`、`NQueen` もそれぞれ `STANDALONE` テストで検証します。`tools/check_unresolved_snippet_sync.py` は対応する3スニペットとヘッダーの一致、およびスニペット展開時のテストを確認します。`DistinctKSegments` の検証には ACL が必要です。
 
 各 sibling Markdown の `documentation_of` は対応ヘッダーを指します。EulerTour は `library/graph/euler_tour.md` から `euler_tour.hpp` へ関連付けます。`.competitive-verifier/docs/index.md` が生成サイトのトップページ、`_config.yml` が日本語タイトル情報です。テストファイルは `DISPLAY no-index` により検証対象のまま索引から除外します。Doxygen は使用しません。
 

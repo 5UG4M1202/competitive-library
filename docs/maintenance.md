@@ -2,7 +2,9 @@
 
 ## Snippet synchronization
 
-保守対象として対応付けたコンポーネントでは、`library/` のヘッダーを正本とし、`cpp.json` の対応エントリを現在利用できる snippet として同期します。現在の対応は `library/data_structure/interval_set.hpp` と `@interval_set`、`library/data_structure/lazy_reversible_rbst.hpp` と `@RBST`、`library/graph/euler_tour.hpp` と `@EulerT` です。
+`@mydate`、`@DistinctMax`、`@NQUEEN` はそれぞれのヘッダーから同期し、`python3 tools/check_unresolved_snippet_sync.py` で定義の一致と展開テストを確認します。ACL の include path が必要です。
+
+保守対象として対応付けたコンポーネントでは、`library/` のヘッダーを正本とし、`cpp.json` の対応エントリを現在利用できる snippet として同期します。対応は `interval_set.hpp` と `@interval_set`、`lazy_reversible_rbst.hpp` と `@RBST`、`euler_tour.hpp` と `@EulerT`、`mydate.hpp` と `@mydate`、`distinct_k_segments.hpp` と `@DistinctMax`、`nqueen.hpp` と `@NQUEEN` です。
 
 - コード、テスト、コンポーネント文書を先に更新し、対応エントリだけを同期する。
 - 未整理のエントリ、`prefix`、`description`、関係のない本文と整形は変更しない。

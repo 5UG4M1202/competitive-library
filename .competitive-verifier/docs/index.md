@@ -7,6 +7,9 @@
 - `IntervalSet`: 値付き半開区間 `[l, r)` の上書き・分割・結合
 - `LazyReversibleRBST`: 動的列の挿入・削除・区間集約・作用・反転
 - `EulerTour`: 根付き木の LCA、辺・頂点のパス和、部分木和、重み更新
+- `DistinctKSegments`: 連続区間分割の異なる値の個数の最大化
+- `NQueen`: クイーン配置と探索
+- `mydate`: 日付演算（負の通算月などに既知の制限あり）
 
 ## 検証方針
 

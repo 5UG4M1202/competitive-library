@@ -44,6 +44,14 @@ not a warranty that every generated fragment is copyrightable or free of
 third-party claims. AtCoder Library remains an external CC0 1.0 Universal
 dependency and is not included in this repository.
 
+The user reports creating `@mydate`, `@DistinctMax`, and `@NQUEEN` with AI
+assistance. Their maintained headers are `library/misc/mydate.hpp`,
+`library/data_structure/distinct_k_segments.hpp`, and
+`library/data_structure/nqueen.hpp`, respectively. Apache-2.0 applies to
+rrrriki's copyrightable human-authored contributions; the report alone does
+not guarantee copyrightability or the absence of third-party rights in every
+generated fragment. The original references are retained.
+
 Every other snippet remains excluded from the blanket Apache-2.0 grant until
 it receives its own provenance review. The absence of a notice does not
 establish originality, public-domain status, or permission to redistribute it.

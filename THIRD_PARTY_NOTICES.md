@@ -96,6 +96,18 @@ notice.
 
 ## User-reported provenance
 
+### mydate, DistinctKSegments, and NQueen
+
+The user reports creating `@mydate`, `@DistinctMax`, and `@NQUEEN` with AI
+assistance. Apache-2.0 applies to rrrriki's copyrightable human-authored
+contributions; the report is not a warranty that generated fragments are
+copyrightable or free of third-party claims. The legacy `@mydate` comment
+refers to Jean Meeus's calendar algorithms; `@DistinctMax` records the
+reference <https://atcoder.jp/contests/abc397/submissions/71461138> and depends
+on external AtCoder Library (CC0-1.0). These references alone do not establish
+a license for every implementation fragment. `@NQUEEN` names no concrete
+external implementation source in the legacy snippet.
+
 ### EulerTour
 
 - Legacy snippet author tag: `@rrrrikiOW`
@@ -148,7 +160,7 @@ The maintained `@EulerT` entry is synchronized from
 authorship statement, the absence of a concrete third-party implementation
 source in the legacy snippet, and the external ACL dependency notice.
 
-The other 20 snippets have not all been cleared for relicensing and remain
+The other 17 snippets have not all been cleared for relicensing and remain
 excluded from the repository's blanket Apache-2.0 grant. Partial evidence
 currently includes:
 
