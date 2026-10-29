@@ -7,6 +7,70 @@ documentation_of: ./euler_tour.hpp
 
 根を指定した重み付き無向木を Euler tour で展開し、LCA、辺・頂点のパス和、部分木和と重み更新を提供します。LCA だけの部品ではありません。
 
+## 使う場面
+
+根付き木に対して LCA、パス上の辺・頂点重み和、部分木重み和、点更新と部分木一括加算を同じ構造で扱うときに使います。LCA だけが必要な場合や、更新を行わない場合にはより小さな専用実装を選ぶ方が簡単です。
+
+## 最小利用例
+
+このヘッダーは `Graph<T>` を同梱していません。次の例では必要な最小インターフェースを呼び出し側で定義しています。リポジトリルートと AtCoder Library を include path に含め、C++17 以上でコンパイルしてください。
+
+```cpp
+#include <cstddef>
+#include <iostream>
+#include <vector>
+
+template <typename T = int>
+struct Graph {
+  struct Edge {
+    int to;
+    T cost;
+  };
+
+  std::vector<std::vector<Edge>> g;
+  explicit Graph(int n) : g(n) {}
+  std::size_t size() const { return g.size(); }
+  std::vector<Edge>& operator[](int v) { return g[v]; }
+  const std::vector<Edge>& operator[](int v) const { return g[v]; }
+  void add_edge(int u, int v, T cost) {
+    g[u].push_back({v, cost});
+    g[v].push_back({u, cost});
+  }
+};
+
+#include "library/graph/euler_tour.hpp"
+
+int main() {
+  Graph<long long> graph(4);
+  graph.add_edge(0, 1, 2);
+  graph.add_edge(0, 2, 3);
+  graph.add_edge(1, 3, 5);
+
+  std::vector<long long> vertex_weight = {10, 20, 30, 40};
+  EulerTour<long long, long long> tour(graph, 0, vertex_weight);
+
+  std::cout << tour.lca(3, 2) << ' '
+            << tour.query_edge(3, 2) << ' '
+            << tour.query_vert(3, 2) << '\n';
+  std::cout << tour.query_subtree_vert(1) << '\n';
+
+  // パス用・部分木用の両セグ木へ反映するため mode = 2 を指定する。
+  tour.add_cost_subtree_vert(1, 10, 2);
+  std::cout << tour.query_subtree_vert(1) << ' '
+            << tour.query_vert(3, 2) << '\n';
+}
+```
+
+出力:
+
+```text
+0 10 90
+60
+80 110
+```
+
+この例で使う種類の LCA・パス和・部分木和・`mode = 2` の更新は `verify/local/euler_tour_boundary.test.cpp` でも assertion 付きで検証しています。verifier のページでは「Verified with」からテストを開けます。
+
 ## 依存と入力
 
 - C++17 以上。
@@ -14,6 +78,7 @@ documentation_of: ./euler_tour.hpp
 - 呼び出し側に `template<class T> struct Graph` があり、`size()`、`g[v]` の反復、各辺の `to` と `cost` を提供すること。
 - 頂点番号は `0..n-1`、`n >= 1`。入力は連結な単純無向木で、各無向辺を両方向の隣接辺として登録します。閉路や多重辺、非連結グラフは対象外です。
 - `root` は有効な頂点番号。頂点重みを省略した場合は全頂点を `1` とします。
+- 頂点重みの配列を渡す場合は要素数を `n` にします。各重み・更新後の和や整数倍が使用する数値型の範囲に収まる必要があります。
 - `E_T` と `V_T` は `0`、加減算、整数倍を扱える数値型を想定します。
 
 ## API と意味
@@ -35,8 +100,8 @@ documentation_of: ./euler_tour.hpp
 
 ## 計算量
 
-- 構築: 時間・メモリともに `O(n)`（再帰 DFS）。
-- 各クエリ、点更新、部分木加算: `O(log n)`。
+- 構築: 時間・メモリともに期待 `O(n)`（再帰 DFS と辺のハッシュ表への登録）。ハッシュ表の最悪計算量は保証されません。
+- 各セグ木は最初に使うときに `O(n)` で遅延構築されます。以後の各クエリ、点更新、部分木加算は、辺のハッシュ表アクセスを含め期待 `O(log n)` です。
 - DFS は再帰なので、一直線の大きな木では処理系のスタック上限に達する可能性があります。
 
 ## 制約・既知の注意

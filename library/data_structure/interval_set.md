@@ -7,6 +7,49 @@ documentation_of: ./interval_set.hpp
 
 値付き半開区間 `[l, r)` を、重複なしで保持する区間 map です。同じ値を持つ隣接区間は更新時に結合されます。元は `cpp.json` の `@interval_set` から抽出し、標準ヘッダーと `std::` 修飾を補ったものです。現在はこのヘッダーを保守対象の正本とし、対応 snippet はテストと文書を含む変更後に同期します。公開 API は維持し、抽出後に確認された bug は回帰テストとともに個別に修正します。
 
+## 使う場面
+
+座標上の区間へ値を上書きし、「ある点の値」「被覆されている長さ」「指定範囲に完全に含まれる保存区間数」を扱うときに使います。配列を座標ごとに持てない大きな整数座標や、同じ値の連続部分をまとめて管理したい場合に向きます。区間加算ではなく、値を上書きする構造です。
+
+## 最小利用例
+
+リポジトリルートを include path に含めてコンパイルする例です。区間は整数座標の半開区間 `[l, r)` です。
+
+```cpp
+#include <iostream>
+
+#include "library/data_structure/interval_set.hpp"
+
+int main() {
+  IntervalSet<int, int> intervals(-1);  // 未被覆点の値は -1
+
+  intervals.update(2, 5, 7);
+  intervals.update(5, 8, 7);  // 同じ値の隣接区間は [2, 8) に結合
+  intervals.update(3, 6, 9);
+
+  std::cout << intervals.get_val(2) << ' '
+            << intervals.get_val(4) << ' '
+            << intervals.get_val(8) << '\n';
+  std::cout << intervals.covered_all() << ' '
+            << intervals.covered_length_in(4, 7) << ' '
+            << intervals.contained_intervals_in(2, 8) << '\n';
+
+  intervals.erase(4, 7);
+  std::cout << intervals.covered_all() << ' '
+            << intervals.covered(4) << '\n';
+}
+```
+
+出力:
+
+```text
+7 9 -1
+6 3 3
+3 0
+```
+
+この例で使う上書き・結合・照会・削除は `verify/local/interval_set_boundary.test.cpp` でも assertion 付きで検証しています。verifier のページでは「Verified with」からテストを開けます。
+
 ## 契約
 
 - `T` は順序、差、加算、`std::numeric_limits<T>::max()` を利用できる整数型を想定します。

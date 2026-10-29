@@ -7,6 +7,82 @@ documentation_of: ./lazy_reversible_rbst.hpp
 
 列を暗黙的な添字で保持し、挿入・削除・区間集約・区間作用・区間反転を扱う乱択平衡二分木です。`cpp.json` の `@RBST` を、標準ヘッダーと `std::` 修飾を補って分離しました。公開型名と操作は維持しています。
 
+## 使う場面
+
+セグメント木の区間集約・遅延作用に加えて、列の途中への挿入・削除や区間反転も必要なときに使います。列長が固定で挿入・削除・反転を行わない場合は、計算量が決定的で定数倍も小さい通常のセグメント木を優先できます。
+
+## 最小利用例
+
+区間和・区間加算・区間反転を組み合わせる例です。リポジトリルートを include path に含めて C++20 でコンパイルしてください。`g` は1要素と部分木集約の両方へ適用されるため、`Summary` に要素数を保持します。
+
+```cpp
+#include <iostream>
+
+#include "library/data_structure/lazy_reversible_rbst.hpp"
+
+struct Summary {
+  long long sum = 0;
+  int length = 0;
+  friend bool operator==(const Summary&, const Summary&) = default;
+};
+
+struct Add {
+  long long value = 0;
+  friend bool operator==(const Add&, const Add&) = default;
+};
+
+Summary combine(Summary left, Summary right) {
+  return {left.sum + right.sum, left.length + right.length};
+}
+
+Summary map_add(Summary summary, Add action) {
+  summary.sum += action.value * summary.length;
+  return summary;
+}
+
+Add compose_add(Add old_action, Add new_action) {
+  return {old_action.value + new_action.value};
+}
+
+Summary reverse_summary(Summary summary) { return summary; }
+
+using Tree = LazyReversibleRBST<Summary, Add, combine, map_add, compose_add,
+                                reverse_summary>;
+
+Summary value(long long x) { return {x, 1}; }
+
+int main() {
+  Tree tree;
+  Tree::Ptr root = tree.make_tree();
+
+  tree.insert(root, 0, value(1));
+  tree.insert(root, 1, value(2));
+  tree.insert(root, 2, value(3));
+
+  tree.apply(root, 0, 2, Add{10});  // [11, 12, 3]
+  tree.reverse(root, 0, 3);         // [3, 12, 11]
+
+  std::cout << tree.fold(root, 0, 3).sum << '\n';
+  for (int i = 0; i < tree.size(root); ++i) {
+    if (i != 0) std::cout << ' ';
+    std::cout << tree.fold(root, i, i + 1).sum;
+  }
+  std::cout << '\n';
+
+  // 全ノードの所有権は呼び出し側にあるため、使用後に解放する。
+  while (root != nullptr) tree.erase(root, 0);
+}
+```
+
+出力:
+
+```text
+26
+3 12 11
+```
+
+この例と同じ種類の区間加算・区間和・反転・解放は `verify/local/lazy_reversible_rbst_boundary.test.cpp` でも assertion 付きで検証しています。verifier のページでは「Verified with」からテストを開けます。
+
 ## テンプレート引数
 
 - `T`: 1要素と部分木集約の型。`T()` が集約の単位元である必要があります。
@@ -15,6 +91,8 @@ documentation_of: ./lazy_reversible_rbst.hpp
 - `g(value_or_summary, action)`: 1要素または部分木集約へ作用を適用する関数。部分木長が必要なら `T` 自身に長さを含めます。
 - `h(old_action, new_action)`: 既存作用の後に新しい作用を合成します。
 - `ts(summary)`: 区間を反転したときの集約を返します。可換な集約なら恒等関数で構いません。
+
+これらの演算は、`f` の結合則・`T()` の単位元、`h` の合成と `E()` の単位元、`g` の集約への分配と合成との整合性を満たす必要があります。`ts` は反転の順序を表し、`ts(f(a, b)) = f(ts(b), ts(a))`、二度の反転で元に戻ること、および遅延作用との整合性も必要です。任意の関数を渡せば正しく動くわけではありません。
 
 ## 操作と計算量
 
@@ -39,6 +117,7 @@ documentation_of: ./lazy_reversible_rbst.hpp
 - `build(values)` は空でない `values` が前提です。空木には `make_tree()` を使います。
 - legacy 実装の `apply` は空区間で null node を `propagate` するため、`l < r` が必要です。`fold` と `reverse` は空区間を扱えます。
 - raw pointer を公開する既存 API を維持しています。`erase` した node は解放されますが、木全体を自動解放する destructor はありません。長寿命プロセスでは利用者側で全 node を解放してください。
+- `insert`、`erase`、`fold`、`apply`、`reverse` は root を参照渡しで更新します。`split(root, k)` は元の木を破壊的に分割するので、元の `root` を使い続けず、戻り値の2つを所有してください。`merge(left, right)` も入力の木を組み替えます。返された root を使い、古い root を別の木として再利用・解放しないでください。
 - `g` は要素と集約の両方に同じ形で適用されます。区間加算・区間和のように長さが必要な作用では、検証コードのように `T` に要素数を保持します。
 - 範囲外添字、空の `build`、空区間への `apply` は検証対象外で、入力検査も行いません。
 
