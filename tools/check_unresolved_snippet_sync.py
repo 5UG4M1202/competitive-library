@@ -5,8 +5,10 @@ from pathlib import Path
 import os
 import shlex
 import subprocess
+import sys
 import tempfile
 
+sys.dont_write_bytecode = True
 import check_interval_set_snippet_sync as shared
 
 ROOT = Path(__file__).resolve().parents[1]

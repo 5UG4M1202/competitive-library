@@ -167,15 +167,49 @@ def load_snippet() -> tuple[dict[str, object], str]:
     return snippets, source
 
 
+def normalize_interval_set(source: str) -> str:
+    """Normalize only the known spelling differences in the mapped definition."""
+    literals = []
+
+    def protect_literals(match: re.Match[str]) -> str:
+        token = match.group()
+        if token.startswith(("//", "/*")):
+            return " "
+        literals.append(token)
+        return f"__INTERVAL_SET_LITERAL_{len(literals) - 1}__"
+
+    source = re.sub(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|/\*.*?\*/|//[^\n]*''',
+                    protect_literals, source, flags=re.DOTALL)
+    source = source.replace("std::", "")
+    source = source.replace("class VAL = ll", "class VAL = long long")
+    source = source.replace("Node(const T& l_, const T& r_, const VAL& val_)",
+                            "Node(const T& l, const T& r, const VAL& val)")
+    source = source.replace(": l(l_), r(r_), val(val_)", ": l(l), r(r), val(val)")
+    source = source.replace("const VAL& identity_ = VAL()", "const VAL& identity = VAL()")
+    source = source.replace(": identity(identity_)", ": identity(identity)")
+    source = source.replace("static_cast<int>(v.size())", "(int)v.size()")
+    source = source.replace("static_cast<T>(l)", "(T)l")
+    source = source.replace("static_cast<T>(r)", "(T)r")
+    source = source.replace("static_cast<T>(r - l)", "(T)(r - l)")
+    source = source.replace("Node(l, T{},", "Node(l, 0,")
+    source = source.replace("return (it != S.end() && r <= it->r);",
+                            "return it != S.end() && r <= it->r;")
+    source = source.replace("total_cover += (R - L)", "total_cover += R - L")
+    source = source.replace("total_cover -= (R - L)", "total_cover -= R - L")
+    source = source.replace("for (const auto& e : ins.S)", "for (auto& e : ins.S)")
+    source = re.sub(r"\s+", "", source)
+    for index, literal in enumerate(literals):
+        source = source.replace(f"__INTERVAL_SET_LITERAL_{index}__", literal)
+    return source
+
+
 def compare_maintained_function(snippet_source: str) -> None:
     header_source = HEADER_PATH.read_text(encoding="utf-8")
-    marker = "long long contained_intervals_in"
-    header_function = extract_function(header_source, marker)
-    snippet_function = extract_function(snippet_source, marker)
-    if normalize_function(header_function) != normalize_function(snippet_function):
-        raise ValueError(
-            "@interval_set contained_intervals_in differs from the maintained header"
-        )
+    marker = "template <class T, class VAL"
+    header_definition = extract_function(header_source, marker)
+    snippet_definition = extract_function(snippet_source, marker)
+    if normalize_interval_set(header_definition) != normalize_interval_set(snippet_definition):
+        raise ValueError("@interval_set definition differs from the maintained header")
 
 
 def compile_and_run(snippet_source: str) -> None:
@@ -292,7 +326,7 @@ def main() -> int:
     compile_and_run(snippet_source)
     print(
         f"cpp.json JSONC parsed ({len(snippets)} snippets); {SNIPPET_NAME} matches the "
-        "maintained function and passed deterministic regression tests"
+        "maintained definition and passed deterministic regression tests"
     )
     return 0
 

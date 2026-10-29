@@ -33,6 +33,7 @@ export COMPETITIVE_VERIFY_CONFIG_PATH="$runtime_directory"
 cd "$repository_root"
 
 python3 tools/check_interval_set_snippet_sync.py
+python3 tools/test_interval_set_snippet_sync.py
 python3 tools/check_rbst_snippet_sync.py
 python3 tools/check_euler_tour_snippet_sync.py
 python3 tools/check_unresolved_snippet_sync.py
