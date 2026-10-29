@@ -5,11 +5,11 @@ documentation_of: //library/misc/mydate.hpp
 
 # mydate
 
-Legacy date arithmetic using the proleptic Gregorian calendar. `mydate(y,m,d)` stores the supplied fields without validation; the default is `(0,0,0)`. Use `isValidDate` to check inputs. Comparisons are lexicographic, including invalid values. `daysInMonth` expects a month in 1..12 (other values return 31). `addDays`, `subDays`, subtraction and `dayOfWeek` use Julian day numbers; weekdays are Monday=0 through Sunday=6. `addMonths` clamps the day to the target month's end.
+先発グレゴリオ暦による、従来の日時計算です。`mydate(y,m,d)` は入力を検証せずに各フィールドを保持し、デフォルト値は `(0,0,0)` です。入力の確認には `isValidDate` を使ってください。比較は無効な値も含めて年月日の辞書順です。`daysInMonth` は月に 1〜12 を想定し、それ以外では 31 を返します。`addDays`、`subDays`、日付同士の減算、`dayOfWeek` はユリウス通日を使います。曜日は月曜日が 0、日曜日が 6 です。`addMonths` は移動先の月に日が存在しない場合、月末に切り詰めます。
 
-All operations are O(1), with no range endpoints or sentinel. Use valid dates and values whose intermediate integer operations and returned `int` year fit. In particular, `toJulianDay` calculates `year + 4800` in `int`; Julian conversions use truncating division and are not reliable over arbitrary negative dates. `subDays(LLONG_MIN)` overflows. `addMonths` with a negative total month can produce month 0 or negative because C++ division truncates toward zero. These legacy behaviors are preserved, not corrected.
+すべての操作は O(1) で、区間の端点や番兵はありません。有効な日付を使い、中間の整数演算と返される `int` 型の年が収まるようにしてください。特に `toJulianDay` は `year + 4800` を `int` で計算します。ユリウス通日への変換はゼロ方向への切り捨て除算を使うため、任意の負の年の日付では信頼できません。`subDays(LLONG_MIN)` はオーバーフローします。`addMonths` は通算月数が負の場合、C++ の除算がゼロ方向に切り捨てられるため、月が 0 以下になることがあります。これらは従来の挙動を維持しており、修正されていません。
 
-Example:
+使用例:
 
 ```cpp
 #include "library/misc/mydate.hpp"
@@ -21,4 +21,4 @@ int main() {
 }
 ```
 
-The user reports creating legacy `@mydate` with AI assistance. Apache-2.0 applies to rrrriki's copyrightable human-authored contributions; this provenance report does not guarantee rights in every generated fragment. The original comment referring to Jean Meeus is preserved and does not establish a source-code license. The nonstandard `__isleap` dependency was replaced with an equivalent Gregorian leap-year expression.
+ユーザーの申告によると、従来の `@mydate` は AI の支援を受けて作成されました。Apache-2.0 は rrrriki による著作権保護の対象となる人間の寄与に適用されます。この来歴の申告は、生成されたすべての断片について権利を保証するものではありません。Jean Meeus に言及する元のコメントは保持されていますが、ソースコードのライセンスを示すものではありません。非標準の `__isleap` への依存は、同等のグレゴリオ暦の閏年判定式に置き換えられています。

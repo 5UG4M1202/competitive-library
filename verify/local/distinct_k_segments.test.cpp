@@ -1,4 +1,5 @@
 // competitive-verifier: STANDALONE
+// competitive-verifier: DISPLAY no-index
 // Intended-correctness: brute-force DP comparison and boundary cases.
 #include <algorithm>
 #include <cassert>

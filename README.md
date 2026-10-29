@@ -27,6 +27,9 @@
 - [`IntervalSet`](library/data_structure/interval_set.md): 値付き半開区間 map。
 - [`LazyReversibleRBST`](library/data_structure/lazy_reversible_rbst.md): 列の挿入・削除・区間作用・反転を扱う乱択平衡二分木。
 - [`EulerTour`](library/graph/euler_tour.md): 根付き木の LCA、パス和、部分木和、重み更新。
+- [`DistinctKSegments`](library/data_structure/distinct_k_segments.md): 連続区間分割における異なる値の個数の最大化。
+- [`NQueen`](library/data_structure/nqueen.md): Nクイーンの配置と探索。
+- [`mydate`](library/misc/mydate.md): 日付の比較・演算。
 
 Union-Find は独自実装を増やさず、通常は AtCoder Library の `atcoder::dsu` を利用する方針です。
 
@@ -38,6 +41,7 @@ PowerShell と C++20 コンパイラが利用できる環境では次を実行�
 python3 tools/check_interval_set_snippet_sync.py
 python3 tools/check_rbst_snippet_sync.py
 python3 tools/check_euler_tour_snippet_sync.py  # AtCoder Library の include path が必要
+python3 tools/check_unresolved_snippet_sync.py  # AtCoder Library の include path が必要
 powershell -ExecutionPolicy Bypass -File tools/run_local_tests.ps1
 ```
 

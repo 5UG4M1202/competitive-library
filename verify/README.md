@@ -33,6 +33,10 @@ PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.
 
 ## Documentation
 
+HTML を生成した後、`python3 tools/check_generated_html.py <生成HTMLディレクトリ> <baseurl>` で内部リンクとアセットの存在を確認できます。`baseurl` が空なら第2引数は省略します。外部リンクの到達性、ページ内アンカー、ブラウザ表示は別途確認します。
+
+生成サイトでは verifier の `docs/static` に置いたテンプレートで、ライブラリ・テストの出力先に `.html` を付け、ライセンスと元ソースへのリンクを調整しています。2026-10-29 に隔離した Ruby 環境でローカル HTML build とサブパスを含む内部リンク検査を実施しました。ブラウザ画面と GitHub Actions は未確認です。
+
 追加された `mydate`、`DistinctKSegments`、`NQueen` もそれぞれ `STANDALONE` テストで検証します。`tools/check_unresolved_snippet_sync.py` は対応する3スニペットとヘッダーの一致、およびスニペット展開時のテストを確認します。`DistinctKSegments` の検証には ACL が必要です。
 
 各 sibling Markdown の `documentation_of` は対応ヘッダーを指します。EulerTour は `library/graph/euler_tour.md` から `euler_tour.hpp` へ関連付けます。`.competitive-verifier/docs/index.md` が生成サイトのトップページ、`_config.yml` が日本語タイトル情報です。テストファイルは `DISPLAY no-index` により検証対象のまま索引から除外します。Doxygen は使用しません。
@@ -46,4 +50,4 @@ PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.
 
 Pages を実際に公開する時は、別途明示的な許可を得た後に、repository の Pages source を GitHub Actions に設定し、`actions/configure-pages@v6`、`pages: write` と `id-token: write` を持つ `actions/deploy-pages@v5` job、および `github-pages` environment を追加します。
 
-2026-10-27 に、E drive 上の隔離 venv にある `competitive-verifier` 4.2.2 を使い、CLI の resolve、2本の `STANDALONE` verify、Jekyll source 生成までローカルで確認しました。この venv は repository の一部ではなく、他の環境では上記 setup が別途必要です。完成HTMLの build と GitHub Actions は未実行です。
+2026-10-29 に、E drive 上の隔離 venv にある `competitive-verifier` 4.2.2 を使い、CLI の resolve、9本の `STANDALONE` verify、Jekyll source 生成までローカルで確認しました。この venv は repository の一部ではなく、他の環境では上記 setup が別途必要です。GitHub Actions は未実行です。

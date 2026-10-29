@@ -1,6 +1,7 @@
 title: competitive-library
 description: 競技プログラミング用C++ライブラリの仕様と検証結果
 lang: ja
+repository_url: https://github.com/5UG4M1202/competitive-library
 # GitHub-oriented navigation is not part of the generated verifier site;
 # its top page lists libraries, and each library page links its tests.
 exclude:

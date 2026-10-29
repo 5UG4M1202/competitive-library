@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+<div {%- if page.lang %} lang="{{page.lang}}"{%- endif -%}>
+{%- assign license_scope_url = '/LICENSE-SCOPE.html' | relative_url -%}
+{%- assign notices_url = '/THIRD_PARTY_NOTICES.html' | relative_url -%}
+{%- assign scope_href = 'href="' | append: license_scope_url | append: '"' -%}
+{%- assign notices_href = 'href="' | append: notices_url | append: '"' -%}
+{%- assign repository_url = site.github.repository_url | default: site.repository_url -%}
+{%- assign source_branch = site.branch_name | default: 'HEAD' -%}
+{%- assign snapshot_href = 'href="' | append: repository_url | append: '/blob/' | append: source_branch | append: '/cpp.json"' -%}
+{{- content | replace: 'href="../../LICENSE-SCOPE.md"', scope_href | replace: 'href="../../THIRD_PARTY_NOTICES.md"', notices_href | replace: 'href="THIRD_PARTY_NOTICES.md"', notices_href | replace: 'href="cpp.json"', snapshot_href -}}
+</div>
