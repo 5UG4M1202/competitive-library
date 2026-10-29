@@ -11,6 +11,15 @@ int main() {
   assert(one.solve() && one.is_valid() && one.size() == 1);
   NQueen impossible(2);
   assert(!impossible.solve() && impossible.get_queens().empty());
+  // Intended correctness: rows preceding a nonzero start are already filled.
+  NQueen partial(4);
+  assert(partial.add_queen(0, 1));
+  assert(partial.solve(1) && partial.is_valid());
+  assert(partial.get_queens().size() == 4);
+  // Characterization: reaching n succeeds even with earlier rows unfilled.
+  NQueen incomplete(4);
+  assert(incomplete.solve(4));
+  assert(incomplete.get_queens().empty() && !incomplete.is_valid());
   NQueen four(4);
   assert(four.add_queen(0, 1));
   assert(four.add_queen(1, 3));

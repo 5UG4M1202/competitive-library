@@ -3,9 +3,9 @@ title: NQueen
 documentation_of: //library/data_structure/nqueen.hpp
 ---
 
-Legacy `@NQUEEN` extraction. The user reports writing it with AI assistance.
-Apache-2.0 applies to rrrriki's copyrightable human-authored contributions;
-this provenance report does not guarantee rights in every generated fragment.
+既存の `@NQUEEN` スニペットを抽出したものです。ユーザーによると、AI の補助を受けて作成されました。
+rrrriki による著作権の対象となる人間の寄与には Apache-2.0 が適用されます。
+この来歴の報告は、生成されたすべての部分の権利を保証するものではありません。
 
 ```cpp
 #include "library/data_structure/nqueen.hpp"
@@ -16,24 +16,27 @@ int main() {
 }
 ```
 
-This prints a valid four-queen board, one row per line.
+有効な 4 クイーンの盤面を、1 行ずつ出力します。
 
-`NQueen(n)` requires `n > 0`. Coordinates are zero-based and must lie in
-`[0,n)` for additions and removals; `x+y` must fit in `int`. `is_valid(x,y)`
-tests whether a square is free from attacks, while `is_valid()` checks whether
-the row set has `n` entries. `solve(x)` recursively fills rows beginning at
-`x`, skipping occupied rows; use `0 <= x <= n`. Successful placements remain
-on the board and are listed by `get_added_queens()`. The getters return sorted
-coordinates. `print` writes to standard output; streaming writes coordinates.
+`NQueen(n)` は `n > 0` を必要とします。座標は 0 始まりで、追加・削除時は
+`[0,n)` の範囲内とし、`x+y` は `int` に収まる必要があります。`is_valid(x,y)` は
+そのマスが攻撃されていないかを調べ、`is_valid()` は行の集合の要素数が `n` かを調べます。
+`solve(x)` は `x` 行目から再帰的にクイーンを配置し、既に埋まった行を飛ばします。
+`0 <= x <= n` としてください。完成した盤面を得るには、`x` より前のすべての行に
+あらかじめクイーンが必要です。この呼び出しはそれらの行を埋めません。特に `solve(n)` は
+盤面が未完成でも直ちに `true` を返します。`true` は探索が `n` 行目に到達したか、
+既に完成した盤面を検出したことを意味します。この前提が満たされない場合、`true` は
+必ずしも `is_valid()` を意味しません。成功時の配置は盤面に残り、
+`get_added_queens()` で取得できます。各 getter は座標をソート順で返します。
+`print` は標準出力に盤面を出力し、ストリーム出力は座標を出力します。
 
-Hash-set operations are expected O(1); ordered queen-set operations cost
-O(log n). Backtracking can take O(n!) time and O(n) recursion depth. Printing
-uses O(n²) time and memory. There are no sentinels or external dependencies.
+ハッシュ集合の操作は期待計算量 O(1)、順序付きクイーン集合の操作は O(log n) です。
+バックトラックは各探索状態で最大 n 列を調べるため、順序付き集合の操作と合わせて
+期待 O(n × n! × log n) 時間以下、O(n) の再帰深さです。盤面の出力は
+時間・メモリともに O(n²) です。番兵や外部依存はありません。
 
-`remove_queen(x, y)` returns `false` without changing the board when that
-square contains no queen; otherwise it removes the queen and returns `true`.
-The former independent row/column/diagonal checks could falsely accept an
-empty square and corrupt the board. A regression test covers that case, and a
-deterministic randomized test compares addition, removal, and attack checks
-against a simple model. Removing from the ordered set costs O(log n), while
-the accompanying hash-set operations are expected O(1).
+`remove_queen(x, y)` はそのマスにクイーンがなければ盤面を変えずに `false` を返し、
+あれば取り除いて `true` を返します。以前は行・列・斜め方向を個別に確認していたため、
+空のマスを誤って受け入れて盤面を壊す場合がありました。このケースは回帰テストで確認し、
+追加・削除・攻撃判定は固定シードのランダムテストで単純なモデルと比較しています。
+順序付き集合からの削除は O(log n)、それに伴うハッシュ集合の操作は期待計算量 O(1) です。
