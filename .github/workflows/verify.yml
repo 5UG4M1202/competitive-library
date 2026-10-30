@@ -78,11 +78,18 @@ jobs:
       - name: Copy license and attribution notices
         run: cp LICENSE LICENSE-SCOPE.md NOTICE THIRD_PARTY_NOTICES.md _jekyll/
 
+      - name: Set project-site base path
+        run: |
+          printf '\nbaseurl: /%s\n' "${GITHUB_REPOSITORY#*/}" >> _jekyll/_config.yml
+
       - name: Build documentation site
         uses: actions/jekyll-build-pages@v1
         with:
           source: _jekyll
           destination: _site
+
+      - name: Check generated links and assets
+        run: python3 tools/check_generated_html.py _site "/${GITHUB_REPOSITORY#*/}"
 
       - name: Upload documentation preview
         if: github.event_name != 'push'
