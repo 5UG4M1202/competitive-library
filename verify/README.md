@@ -31,13 +31,15 @@ PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.
 
 `tools/run_verifier.sh` は verifier の resolve より前に4本の同期検査を実行します。これらは `cpp.json` を JSONC として読み、保守対象6件が各ヘッダーの対応実装・来歴表示と一致することを確認し、展開したコードをコンパイルして決定的な回帰を実行します。EulerTour と DistinctKSegments の同期検査には上記の ACL include path が必要です。
 
+`python3 tools/test_pages_workflow.py` は、Pages 公開が成功した `main` push の検証結果に依存し、必要な権限を公開 job に限定する設定かを検査します。実行には PyYAML（verifier の依存）が必要です。
+
 ## Documentation
 
 生成 HTML をブラウザで確認する手順は [ローカルプレビュー](../docs/preview.md) を参照してください。
 
 HTML を生成した後、`python3 tools/check_generated_html.py <生成HTMLディレクトリ> <baseurl>` で内部リンクとアセットの存在を確認できます。`baseurl` が空なら第2引数は省略します。外部リンクの到達性、ページ内アンカー、ブラウザ表示は別途確認します。
 
-生成サイトでは verifier の `docs/static` に置いたテンプレートで、ライブラリ・テストの出力先に `.html` を付け、ライセンスと元ソースへのリンクを調整しています。狭い画面では長いパスを折り返し、コードブロック内を横スクロールできます。GitHub Actions の結果はテキストリンクから確認します。GitHub Actions 自体は未確認です。
+生成サイトでは verifier の `docs/static` に置いたテンプレートで、ライブラリ・テストの出力先に `.html` を付け、ライセンスと元ソースへのリンクを調整しています。狭い画面では長いパスを折り返し、コードブロック内を横スクロールできます。GitHub Actions の結果はサイト上のテキストリンクから確認します。
 
 追加された `mydate`、`DistinctKSegments`、`NQueen` もそれぞれ `STANDALONE` テストで検証します。`tools/check_unresolved_snippet_sync.py` は対応する3スニペットとヘッダーの一致、およびスニペット展開時のテストを確認します。`DistinctKSegments` の検証には ACL が必要です。
 
@@ -48,8 +50,8 @@ HTML を生成した後、`python3 tools/check_generated_html.py <生成HTMLデ�
 `.github/workflows/verify.yml` は pull request、`main` push、手動実行で検証、文書生成、Jekyll buildを行います。公式 `verify` Action は既定の `check: false` では失敗を job failure にしないため、`check: true` を明示しています。
 
 - pull request と手動実行: 生成サイトを通常の Actions artifact として保存します。Pages には公開しませんが、公開リポジトリの artifact は機密境界ではなく、リポジトリを閲覧できる利用者がダウンロードできる場合があります。生成文書には秘密情報、個人情報、ローカルの個人パスを含めないでください。
-- `main` push: 将来の Pages deployment が利用できる `github-pages` artifact を作りますが、deploy job はまだありません。
+- `main` push: 検証・文書ビルド・リンク検査がすべて成功した場合に限り、`github-pages` artifact を GitHub Pages に公開します。公開先は [検証ドキュメント](https://5ug4m1202.github.io/competitive-library/) です。
 
-Pages を実際に公開する時は、別途明示的な許可を得た後に、repository の Pages source を GitHub Actions に設定し、`actions/configure-pages@v6`、`pages: write` と `id-token: write` を持つ `actions/deploy-pages@v5` job、および `github-pages` environment を追加します。
+Pages の source は repository 設定で GitHub Actions を使用します。deploy job は `verify` の成功を必要とし、`main` への push でのみ実行されます。pull request と手動実行では公開しません。公開専用 job にだけ `pages: write` と `id-token: write` を付与し、同時デプロイを直列化します。公開は最新の `main` に追従し、Release tag の内容に固定されません。
 
-2026-10-29 に、E drive 上の隔離 venv にある `competitive-verifier` 4.2.2 を使い、CLI の resolve、9本の `STANDALONE` verify、Jekyll source 生成までローカルで確認しました。この venv は repository の一部ではなく、他の環境では上記 setup が別途必要です。GitHub Actions は未実行です。
+2026-10-29 に、E drive 上の隔離 venv にある `competitive-verifier` 4.2.2 を使い、CLI の resolve、9本の `STANDALONE` verify、Jekyll source 生成までローカルで確認しました。この venv は repository の一部ではなく、他の環境では上記 setup が別途必要です。各コミットの Actions 結果は GitHub 上で確認してください。
