@@ -21,3 +21,4 @@
 - Keep `LICENSE`, `LICENSE-SCOPE.md`, `NOTICE`, and `THIRD_PARTY_NOTICES.md` in generated documentation artifacts when templates or project code are redistributed.
 - Use the matching repository-local skill in `.agents/skills/` when a request fits it; do not force all skills into a pipeline. The available routes are addition, extension, verification/verifier integration, read-only review, and read-only release preflight.
 - `cp-library-release-check` never authorizes committing, pushing, publishing, deleting, rewriting history, or changing settings.
+- Before preparing a Release or updating the `cpptemplate` Release URL, follow `docs/release-process.md`; do not treat local checks or an Actions run for a different commit as release approval.

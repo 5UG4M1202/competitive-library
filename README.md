@@ -8,6 +8,7 @@
 - [`verify/`](verify/README.md): local / judge-backed 検証。
 - [`docs/maintenance.md`](docs/maintenance.md): 抽出、互換性、Release の運用方針。
 - [`docs/commit-conventions.md`](docs/commit-conventions.md): コミットメッセージ、変更分類、分割単位の規約。
+- [`docs/release-process.md`](docs/release-process.md): スニペットの参照URLとRelease・Actionsの同期手順。
 - [`docs/license-and-contest-use.md`](docs/license-and-contest-use.md): ライセンスの適用範囲、配布時の注意、コンテスト規約との区別。
 - [`LICENSE`](LICENSE) / [`LICENSE-SCOPE.md`](LICENSE-SCOPE.md) / [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md): Apache-2.0 本文、適用範囲、第三者由来。
 - [`cpp.json`](cpp.json): 現行の VS Code snippet 集。保守対象として対応付けた項目は `library/` のヘッダーから同期し、未整理の項目は個別に扱います。

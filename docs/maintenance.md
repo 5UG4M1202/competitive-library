@@ -39,3 +39,5 @@
 ## Release and publication
 
 ローカルの整理、commit、push、PR、Release、GitHub Pages、repository 設定変更は別の権限です。依頼された範囲を越えて公開しません。Release を作る場合は、対象 commit、tag、添付 digest、公開範囲を事前に確認します。
+
+スニペットの参照URL、検証する commit、Actions の成功条件、Release と添付ファイルの対応は [`release-process.md`](release-process.md) に従います。

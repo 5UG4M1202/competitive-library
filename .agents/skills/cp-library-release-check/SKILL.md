@@ -5,7 +5,7 @@ description: Run a read-only preflight for a competitive-library commit, tag, ar
 
 # CP Library Release Check
 
-1. Establish the exact intended files, version, tag, artifact, and publication scope. Read `AGENTS.md`, `docs/maintenance.md`, and `docs/commit-conventions.md`.
+1. Establish the exact intended files, version, tag, artifact, and publication scope. Read `AGENTS.md`, `docs/maintenance.md`, `docs/commit-conventions.md`, and `docs/release-process.md`. Check the `cpptemplate` Release URL, the intended tag and `cpp.json` artifact digest, and successful Actions for the exact Release commit as specified there.
 2. Inspect tracked, staged, modified, and untracked files separately. Never assume every untracked proposal belongs in the release.
 3. Check relevant documentation and tests. For maintained snippet mappings, verify header/snippet consistency, notices, and intended entry-only changes; treat unresolved legacy entries separately rather than accepting an arbitrary whole-file hash change.
 4. Inspect both author and committer identity for privacy-safe names and email addresses. Do not print credentials or unnecessary personal data.
