@@ -1,5 +1,3 @@
-# competitive-library
-
 競技プログラミング用 C++ ヘッダーと、その仕様・検証結果をまとめます。実装説明は各ヘッダーの sibling Markdown にある `documentation_of` から生成されます。
 
 ## 収録内容

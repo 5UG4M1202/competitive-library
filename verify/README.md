@@ -37,7 +37,7 @@ PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.
 
 HTML を生成した後、`python3 tools/check_generated_html.py <生成HTMLディレクトリ> <baseurl>` で内部リンクとアセットの存在を確認できます。`baseurl` が空なら第2引数は省略します。外部リンクの到達性、ページ内アンカー、ブラウザ表示は別途確認します。
 
-生成サイトでは verifier の `docs/static` に置いたテンプレートで、ライブラリ・テストの出力先に `.html` を付け、ライセンスと元ソースへのリンクを調整しています。2026-10-29 に隔離した Ruby 環境でローカル HTML build とサブパスを含む内部リンク検査を実施しました。ブラウザ画面と GitHub Actions は未確認です。
+生成サイトでは verifier の `docs/static` に置いたテンプレートで、ライブラリ・テストの出力先に `.html` を付け、ライセンスと元ソースへのリンクを調整しています。狭い画面では長いパスを折り返し、コードブロック内を横スクロールできます。GitHub Actions の結果はテキストリンクから確認します。GitHub Actions 自体は未確認です。
 
 追加された `mydate`、`DistinctKSegments`、`NQueen` もそれぞれ `STANDALONE` テストで検証します。`tools/check_unresolved_snippet_sync.py` は対応する3スニペットとヘッダーの一致、およびスニペット展開時のテストを確認します。`DistinctKSegments` の検証には ACL が必要です。
 
