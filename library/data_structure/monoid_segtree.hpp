@@ -4,6 +4,7 @@
 #include <atcoder/segtree>
 
 #include <limits>
+#include <numeric>
 #include <optional>
 #include <type_traits>
 #include <vector>
@@ -20,6 +21,52 @@ using LazySegtree = atcoder::lazy_segtree<typename A::value_type, A::op, A::id,
                                          A::composition, A::action_id>;
 
 enum class AggregateKind { sum, minimum, maximum };
+
+// Nonnegative values represented by an unsigned integer type (excluding bool).
+template <class T>
+struct Gcd {
+  static_assert(std::is_integral_v<T> && std::is_unsigned_v<T> && !std::is_same_v<T, bool>);
+  using value_type = T;
+  static value_type op(value_type a, value_type b) { return std::gcd(a, b); }
+  static value_type id() { return 0; }
+};
+
+enum class BitwiseKind { bit_and, bit_or, bit_xor };
+
+// Unsigned integers make the bit width and the AND identity explicit.
+template <class T, BitwiseKind Kind>
+struct Bitwise {
+  static_assert(std::is_integral_v<T> && std::is_unsigned_v<T> && !std::is_same_v<T, bool>);
+  using value_type = T;
+  static value_type op(value_type a, value_type b) {
+    if constexpr (Kind == BitwiseKind::bit_and) return static_cast<T>(a & b);
+    if constexpr (Kind == BitwiseKind::bit_or) return static_cast<T>(a | b);
+    return static_cast<T>(a ^ b);
+  }
+  static value_type id() {
+    if constexpr (Kind == BitwiseKind::bit_and) return std::numeric_limits<T>::max();
+    return 0;
+  }
+};
+
+// Empty ranges have count zero; the minimum itself is meaningful when count > 0.
+template <class T>
+struct MinCount {
+  static_assert(std::is_integral_v<T> && !std::is_same_v<T, bool>);
+  struct value_type {
+    T value;
+    long long count;
+  };
+  static value_type op(value_type a, value_type b) {
+    if (a.count == 0) return b;
+    if (b.count == 0) return a;
+    if (a.value < b.value) return a;
+    if (b.value < a.value) return b;
+    return {a.value, a.count + b.count};
+  }
+  static value_type id() { return {std::numeric_limits<T>::max(), 0}; }
+  static value_type leaf(T value) { return {value, 1}; }
+};
 
 template <class T>
 struct RangeValue {

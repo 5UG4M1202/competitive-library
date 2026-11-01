@@ -3,6 +3,8 @@
 | 要件 | 候補 | はじめに確認すること |
 | --- | --- | --- |
 | 点更新・区間集約 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | `op` の順序、単位元、初期値 |
+| 点更新・区間 gcd または bitwise AND・OR・XOR | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | 符号なし整数、演算ごとの空区間の値 |
+| 点更新・区間最小値とその出現回数 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | 空区間は `count == 0`、要素は `leaf` で構築 |
 | 区間更新と一点取得 | [双対セグメント木](../library/data_structure/dual_segtree.md) | 作用の合成順序、初期値と作用の型 |
 | 区間加算・代入と和・最小・最大 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | `[l,r)`、要素数、オーバーフロー |
 | 区間一次変換と和 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | 合成順序、数値範囲 |

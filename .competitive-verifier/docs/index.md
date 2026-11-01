@@ -6,7 +6,7 @@
 
 ## 収録内容
 
-- [Monoid と ACL セグメント木]({{ '/library/data_structure/monoid_segtree.hpp.html' | relative_url }}): 点更新・区間集約、区間加算・代入・一次変換。どの操作を使うか、初期値と数値範囲に注意
+- [Monoid と ACL セグメント木]({{ '/library/data_structure/monoid_segtree.hpp.html' | relative_url }}): 区間和・最小・最大、gcd・bitwise・最小値の回数、区間加算・代入・一次変換。初期値と数値範囲に注意
 - [動的遅延セグメント木]({{ '/library/data_structure/dynamic_lazy_segtree.hpp.html' | relative_url }}): 広い整数座標での区間更新・集約。初期集約、メモリ所有権、未確認の来歴に注意
 - [PrimeUtil]({{ '/library/math/prime_util.hpp.html' | relative_url }}): 上限以下の多数の値の素数判定・素因数分解・約数列挙
 - [試し割りと素数表]({{ '/library/math/trial_division.hpp.html' | relative_url }}): 単発の素因数分解・約数列挙とふるい

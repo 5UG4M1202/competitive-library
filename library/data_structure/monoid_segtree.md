@@ -15,8 +15,26 @@ documentation_of: ./monoid_segtree.hpp
 | 区間加算と区間和・最小・最大 | `cp::LazySegtree<cp::RangeAdd<T, K>>` |
 | 区間代入と区間和・最小・最大 | `cp::LazySegtree<cp::RangeAssign<T, K>>` |
 | 区間一次変換 `x → a*x+b` と区間和 | `cp::LazySegtree<cp::RangeAffineSum<T>>` |
+| 点変更と区間 gcd | `cp::Segtree<cp::Gcd<T>>` |
+| 点変更と区間 bitwise AND・OR・XOR | `cp::Segtree<cp::Bitwise<T, K>>` |
+| 点変更と区間最小値・その出現回数 | `cp::Segtree<cp::MinCount<T>>` |
 
 `K` は `cp::AggregateKind::sum`、`minimum`、`maximum` です。区間代入の作用は `std::optional<T>` で表し、`std::nullopt` が何もしない作用です。入力値と衝突する特殊な整数を使いません。一次変換 `{1, b}` は加算、`{0, b}` は代入、`{a, 0}` は乗算を表します。
+
+gcd と bitwise は `bool` を除く標準の符号なし整数型を使用します。gcd の空区間は `0`（`gcd(0,0)=0`）、bitwise AND はその型の全ビット 1、OR・XOR は `0` です。bitwise の `K` は `cp::BitwiseKind::bit_and`、`bit_or`、`bit_xor` のいずれかです。これらは点更新・区間取得用のモノイドであり、区間更新の作用は定義していません。
+
+`MinCount<T>` は `bool` を除く標準の整数型に対応し、`{value, count}` を返します。空区間は `{numeric_limits<T>::max(), 0}`、要素は `leaf(x)` で作り、空かどうかは `count == 0` で判定します。最大値そのものが入力に含まれていても、回数で空区間と区別できます。回数の合計は `long long` に収まる必要があります。
+
+```cpp
+using G = cp::Gcd<unsigned long long>;
+cp::Segtree<G> gcd(std::vector<unsigned long long>{12, 18, 30});
+gcd.set(1, 24);
+// gcd.prod(0, 3) == 6
+
+using Min = cp::MinCount<long long>;
+cp::Segtree<Min> minima(cp::range_values<Min>(std::vector<long long>{3, 1, 1}));
+auto result = minima.prod(0, 3); // result.value == 1, result.count == 2
+```
 
 ## 最小例：区間加算と区間和
 
@@ -49,7 +67,7 @@ seg.apply(0, 2, {3, 4}); // x -> 3*x+4 （後に作用）
 
 通常木用の型 `M` は `value_type`、`static value_type op(value_type, value_type)`、`static value_type id()` を用意します。遅延木用の型 `A` はさらに `action_type`、`mapping(action_type, value_type)`、`composition(action_type, action_type)`、`action_id()` を同じ値渡しの形で用意します。`leaf` と `range_values` はこのヘッダーの便宜機能で、アダプターそのものの必須要件ではありません。
 
-例えば、点変更・区間 XOR 用の定義は次のように追加できます。
+例えば、点変更・区間 XOR は `Bitwise` を使えますが、独自定義を追加するなら次のように書けます。
 
 ```cpp
 struct Xor {
@@ -65,8 +83,8 @@ cp::Segtree<Xor> seg(std::vector<unsigned>{1, 2, 3});
 
 `op` の結合律と単位元、作用の恒等性・合成順・結合との両立 `mapping(f, op(x,y)) = op(mapping(f,x), mapping(f,y))` を確認します。たとえば和に加算を適用する場合、区間和だけでは要素数が分からず、長さを持たせる必要があります。使用する状態と作用の集合は、これらの法則の下で閉じている必要があります。詳細は [ACL の要件](https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html)を参照してください。
 
-追加候補には、gcd、bitwise 演算、文字列連結、最小値とその出現回数、最大部分和、区間代入と文字数カウント、modint による一次変換があります。どの作用が使えるかは保持する情報次第です。例えば単なる区間和だけから一括 `chmin` 後の和を求めることはできず、別のデータ構造や追加情報が必要です。非可換な演算では `op(left, right)` の順序を守り、逆順でも検証してください。
+追加候補には、文字列連結、最大部分和、区間代入と文字数カウント、modint による一次変換があります。どの作用が使えるかは保持する情報次第です。例えば単なる区間和だけから一括 `chmin` 後の和を求めることはできず、別のデータ構造や追加情報が必要です。非可換な演算では `op(left, right)` の順序を守り、逆順でも検証してください。
 
-各組み込みポリシーは符号付き整数型を想定し、長さと、結合・適用・作用の合成のすべての中間結果が型の範囲に収まることが前提です。オーバーフローは検出しません。`length` は `long long`、和の場合は `T` に変換されるので長さも `T` で表現可能にしてください。`int` の端点とメモリの制約は ACL に従います。一次変換には modular arithmetic が必要な場合が多く、標準整数の代わりに利用する型に応じた独自ポリシーを定義してください。
+`RangeAggregate`・`RangeAdd`・`RangeAssign`・`RangeAffineSum` は符号付き整数型を想定し、長さと、結合・適用・作用の合成のすべての中間結果が型の範囲に収まることが前提です。オーバーフローは検出しません。`length` は `long long`、和の場合は `T` に変換されるので長さも `T` で表現可能にしてください。`int` の端点とメモリの制約は ACL に従います。一次変換には modular arithmetic が必要な場合が多く、標準整数の代わりに利用する型に応じた独自ポリシーを定義してください。
 
-構築は `O(n)`、点操作・区間操作は `O(log n)`、メモリは `O(n)`（いずれも定義した演算が定数時間の場合）です。[ローカル検証](../../verify/local/monoid_segtree.test.cpp)は6種類と一次変換の合成を確認します。
+構築は `O(n)`、点操作・区間操作は `O(log n)`、メモリは `O(n)`（いずれも定義した演算が定数時間の場合）です。gcd は結合にユークリッドの互除法の計算時間がかかります。ローカル検証では区間加算・代入・一次変換、gcd・bitwise・最小値と回数を単純な配列と比較します。検証ページの「Verified with」から各テストを開けます。
