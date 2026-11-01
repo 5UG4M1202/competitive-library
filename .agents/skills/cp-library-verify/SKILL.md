@@ -13,4 +13,8 @@ description: Add, repair, or assess competitive-programming library tests and co
 6. For a mapped maintained snippet, verify its JSON shape, provenance notices, mapped implementation consistency, and representative template compilation without changing unrelated entries.
 7. Report separately what was executed, what was only drafted, and what was not tested.
 
+Check that the component documentation and use-case navigation link to the relevant verification and describe the coverage and its limits; report gaps in the current verification scope.
+
+For a copyable multi-header submission example, verify the generated page's actual copyable code compiles as one translation unit, runs with the documented output, retains external includes, and has no unresolved project includes. Keep the example and its documentation synchronized.
+
 Do not install verification tools, enable Pages, change settings, modify unresolved snippet entries or the external live snippet, or publish without separate explicit authorization.

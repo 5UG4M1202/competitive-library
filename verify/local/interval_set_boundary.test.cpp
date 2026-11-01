@@ -62,9 +62,9 @@ int main() {
   IntervalSet<int, int> adjacent_values(identity);
   adjacent_values.update(0, 1, 1);
   adjacent_values.update(1, 2, 2);
-  // Characterization: the mathematical mex is 2, but legacy get_mex only
-  // advances through the first interval.
-  assert(adjacent_values.get_mex(0) == 1);
+  // A covered run can contain adjacent intervals with different values.
+  assert(adjacent_values.get_mex(0) == 2);
+  assert(adjacent_values.get_mex(1) == 2);
 
   IntervalSet<int, int> negative_endpoints(identity);
   negative_endpoints.update(-10, -5, 1);
@@ -73,11 +73,11 @@ int main() {
   for (const auto& node : negative_endpoints) {
     negative_nodes.emplace_back(node.l, node.r, node.val);
   }
-  // Characterization: a zero-length stale interval remains because the
-  // mutation lookup uses T{} (zero) as a right-end sentinel.
   assert((negative_nodes ==
           std::vector<std::tuple<int, int, int>>{
-              {-10, -10, 1}, {-10, -7, 2}, {-7, -5, 1}}));
+              {-10, -7, 2}, {-7, -5, 1}}));
+  negative_endpoints.erase(-10, -8);
+  assert(!negative_endpoints.covered(-10) && negative_endpoints.get_val(-8) == 2);
 
   long long weighted = 0;
   auto add = [&](int l, int r, int value) {

@@ -1,11 +1,13 @@
 # Repository maintenance rules
 
 - A maintained `library/` header is the source of truth for its mapped entry in `cpp.json`. After changing a maintained component, synchronize only that entry, preserve unrelated prefixes, descriptions, bodies, and formatting, retain provenance/license notices, and run the mapped snippet check.
-- Do not blanket-regenerate unresolved legacy snippets or derive maintained headers from `cpp.json`. The live VS Code snippet file is outside this repository and requires a separate explicit request before modification.
+- Do not blanket-regenerate unresolved legacy snippets. When extracting a specifically reviewed component from `cpp.json`, record what is known and unknown about provenance, preserve behavior, and establish header/snippet synchronization; do not infer authorship from absence of a notice. The live VS Code snippet file is outside this repository and requires a separate explicit request before modification.
+- Separate a snippet into `library/` only when it provides a distinct reusable capability, a strengthened interface, additional functionality, or meaningful independent maintenance value. Keep simple contest idioms, input/output convenience functions and macros, and thin aliases of existing standard or external facilities in snippets by default. Investigate and fix snippet bugs without requiring a header. A PBDS wrapper merits a header when it adds capabilities or improves its interface, not merely to give it another name.
 - Preserve existing public APIs and semantics when extracting code. Add missing standard includes and `std::` qualification, but document every behavior change separately.
 - Before adding or relicensing code, read `LICENSE-SCOPE.md`, `THIRD_PARTY_NOTICES.md`, and `docs/license-and-contest-use.md`. Record the source and license of third-party material, retain required notices, and do not extend the project's Apache-2.0 grant to unresolved legacy snippets without a separate provenance review.
 - Use `library/<category>/<name>.hpp` with sibling `<name>.md`. The Markdown must describe endpoint conventions, preconditions, sentinel assumptions, overflow limits, complexity, and known issues.
 - Every code change must update its tests and documentation. Prefer a small boundary test plus a deterministic randomized comparison with a simple model.
+- For every library component, keep a clear path from the user's task to an appropriate choice: update the use-case guide and site navigation when needed, and document examples, alternatives, prerequisites, ownership, limits, and verification.
 - Add `PROBLEM` tests only for a genuinely matching supported judge problem. Do not use an unrelated problem merely to obtain a verification badge.
 - Run from the repository root:
   - `python3 tools/check_interval_set_snippet_sync.py`
@@ -13,6 +15,34 @@
   - `python3 tools/check_rbst_snippet_sync.py`
   - `python3 tools/check_euler_tour_snippet_sync.py` (AtCoder Library の include path が必要)
   - `python3 tools/check_unresolved_snippet_sync.py` (AtCoder Library の include path が必要)
+  - `python3 tools/check_potential_union_find_snippet_sync.py`
+  - `python3 tools/test_dynamic_lazy_segtree_snippet.py`
+  - `python3 tools/check_prime_util_snippet_sync.py`
+  - `python3 tools/check_rotate_matrix_snippet_sync.py`
+  - `python3 tools/check_levenstein_snippet_sync.py`
+  - `python3 tools/check_coord_compressor_snippet_sync.py`
+  - `python3 tools/check_cumulative_sum_2d_snippet_sync.py`
+  - `python3 tools/check_doubling_snippet_sync.py`
+  - `python3 tools/check_grid_snippet_sync.py`
+  - `python3 tools/check_bipartite_graph_snippet_sync.py` (AtCoder Library の include path が必要)
+  - `python3 tools/check_graph_algorithms_snippet_sync.py` (AtCoder Library の include path が必要)
+  - `python3 tools/check_k_shortest_path_snippet_sync.py`
+  - `python3 tools/check_rolling_hash_snippet_sync.py`
+  - `python3 tools/check_dual_segtree_snippet_sync.py`
+  - `python3 tools/check_rle_snippet_sync.py`
+  - `python3 tools/test_template_is_prime.py`
+  - `python3 tools/check_math_helpers_snippet_sync.py`
+  - `python3 tools/test_pair_hash_snippet.py`
+  - `python3 tools/test_to_digit_snippet.py`
+  - `python3 tools/test_mos_snippet.py`
+  - `python3 tools/test_meguru_snippet.py`
+  - `python3 tools/test_template_io_snippet.py`
+  - `python3 tools/test_template_macros.py`
+  - `python3 tools/test_template_full_expansion.py` (AtCoder Library の include path が必要)
+  - `python3 tools/test_misc_snippets.py` (GNU libstdc++ PBDS が必要)
+  - `python3 tools/test_next_combination_snippet.py`
+  - `python3 tools/test_doc_navigation.py`
+  - `python3 tools/test_segtree_examples.py` (AtCoder Library の include path が必要)
   - `powershell -ExecutionPolicy Bypass -File tools/run_local_tests.ps1`
   - when `competitive-verifier` is already installed: `bash tools/run_verifier.sh`; it writes resolve, verify, and generated documentation outputs to a temporary directory by default.
 - Do not install tools, push, open a PR, publish a Release, enable Pages, or change repository/account settings unless the user explicitly requests that action.

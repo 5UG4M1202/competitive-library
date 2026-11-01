@@ -29,7 +29,7 @@ PATH="/tmp/competitive-library-verifier-venv/bin:$PATH" bash tools/run_verifier.
 
 簡易ローカル実行は `tools/run_local_tests.ps1` を利用できます。Visual Studio の場合は Developer PowerShell で実行するか、`-Compiler cl` を指定してください。
 
-`tools/run_verifier.sh` は verifier の resolve より前に4本の同期検査を実行します。これらは `cpp.json` を JSONC として読み、保守対象6件が各ヘッダーの対応実装・来歴表示と一致することを確認し、展開したコードをコンパイルして決定的な回帰を実行します。EulerTour と DistinctKSegments の同期検査には上記の ACL include path が必要です。
+`tools/run_verifier.sh` は verifier の resolve より前に同期検査を実行します。これらは `cpp.json` を JSONC として読み、対応付けた各 snippet の実装・来歴表示を確認し、展開したコードをコンパイルして決定的な回帰を実行します。対象と個別の検査コマンドは [`docs/maintenance.md`](../docs/maintenance.md) を参照してください。ACL を使うコンポーネントの同期検査には上記の include path が必要です。
 
 `python3 tools/test_pages_workflow.py` は、Pages 公開が成功した `main` push の検証結果に依存し、必要な権限を公開 job に限定する設定かを検査します。実行には PyYAML（verifier の依存）が必要です。
 
@@ -55,3 +55,13 @@ HTML を生成した後、`python3 tools/check_generated_html.py <生成HTMLデ�
 Pages の source は repository 設定で GitHub Actions を使用します。deploy job は `verify` の成功を必要とし、`main` への push でのみ実行されます。pull request と手動実行では公開しません。公開専用 job にだけ `pages: write` と `id-token: write` を付与し、同時デプロイを直列化します。公開は最新の `main` に追従し、Release tag の内容に固定されません。
 
 2026-10-29 に、E drive 上の隔離 venv にある `competitive-verifier` 4.2.2 を使い、CLI の resolve、9本の `STANDALONE` verify、Jekyll source 生成までローカルで確認しました。この venv は repository の一部ではなく、他の環境では上記 setup が別途必要です。各コミットの Actions 結果は GitHub 上で確認してください。
+
+`cpptemplate` 内の重み付き Union-Find は `tools/check_potential_union_find_snippet_sync.py` でヘッダーとの一致と展開テストを確認します。
+
+`tools/test_dynamic_lazy_segtree_snippet.py` は動的遅延セグメント木のヘッダーと `cpptemplate` の定義を照合し、展開した snippet で境界探索、区間加算、所有権のテストを実行します。実装の来歴と利用条件は未確認です。
+
+`tools/test_segtree_examples.py` は通常・遅延・動的の3スニペットをそれぞれ展開してコンパイルし、区間操作と素朴な配列との比較を行います。ACL の include path が必要です。
+
+`tools/check_graph_algorithms_snippet_sync.py` はグラフ型・最短路・全域森の定義と展開コードを検査します。`tools/test_doc_navigation.py` はライブラリ文書間の相互リンクが verifier サイトの出力先に変換されることを確認します。完成 HTML 自体のリンク確認は別途実施します。
+
+`tools/test_next_combination_snippet.py` は両テンプレート内の組合せ列挙の一致と、空範囲、重複値、移動専用型などを含む展開後の動作を確認します。

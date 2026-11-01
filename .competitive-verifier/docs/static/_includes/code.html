@@ -1,0 +1,63 @@
+{%- if include.embedded.size >= 1 -%}
+<div class="code">
+{%- for source in include.embedded -%}
+    {%- assign codeBody = source.code -%}
+    {%- if page.data.path == 'library/graph/euler_tour.hpp' and source.name == 'bundled' -%}
+        {%- for candidate in site.pages -%}
+            {%- if candidate.data.path == 'library/graph/graph.hpp' -%}
+                {%- for graph_source in candidate.data.embedded -%}
+                    {%- if graph_source.name == 'bundled' -%}
+                        {% capture newline %}
+{% endcapture %}
+                        {%- assign codeBody = graph_source.code | append: newline | append: source.code -%}
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+    <pre class="hljs {% unless forloop.first %}disable{% endunless %}" id="code-body-{{forloop.index}}"><code class="language-{{include.extension}}">{{ codeBody | xml_escape }}</code></pre>
+{%- endfor -%}
+{%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' -%}
+    {%- assign exampleCode = '' -%}
+    {%- for source in include.embedded -%}
+        {%- if source.name == 'bundled' -%}
+            {%- assign exampleCode = source.code -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if page.data.path == 'library/graph/euler_tour.hpp' -%}
+        {%- assign dependency_path = 'library/graph/graph.hpp' -%}
+        {%- capture example_main -%}{% include submission_examples/euler_tour.cpp %}{%- endcapture -%}
+    {%- else -%}
+        {%- assign dependency_path = 'library/data_structure/monoid_segtree.hpp' -%}
+        {%- capture example_main -%}{% include submission_examples/dynamic_lazy_segtree.cpp %}{%- endcapture -%}
+    {%- endif -%}
+    {%- for candidate in site.pages -%}
+        {%- if candidate.data.path == dependency_path -%}
+            {%- for dependency in candidate.data.embedded -%}
+                {%- if dependency.name == 'bundled' -%}
+                    {% capture newline %}
+{% endcapture %}
+                    {%- assign exampleCode = dependency.code | append: newline | append: exampleCode | append: newline | append: example_main -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+    <pre class="hljs disable" id="code-body-example"><code class="language-cpp">{{ exampleCode | xml_escape }}</code></pre>
+{%- endif -%}
+    <div class="btn-area">
+    {%- if include.embedded.size >= 2 -%}
+        <div class="btn-group">
+        {%- for source in include.embedded -%}
+            <button type="button" class="code-btn code-toggle-btn {% if forloop.first %}selected{% endif %}" data-target="code-body-{{forloop.index}}">{{source.name}}</button>
+        {%- endfor -%}
+        {%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' -%}
+            <button type="button" class="code-btn code-toggle-btn" data-target="code-body-example">提出用の利用例</button>
+        {%- endif -%}
+        </div>
+    {%- endif -%}
+        <div class="btn-group"><button type="button" class="code-btn code-copy-btn hint--top hint--always hint--disable" aria-label="Copied!">Copy</button></div>
+    </div>
+</div>
+{%- else -%}
+<div style="height: 5em;">:x: <b>There is no code.</b></div>
+{%- endif -%}

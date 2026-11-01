@@ -22,8 +22,8 @@ class IntervalSetSyncTest(unittest.TestCase):
             ("covered length", "if (a < b) res += b - a;", "if (a < b) res += b - a + 1;"),
             ("contained count", "++cnt;", "--cnt;"),
             ("update", "if (it->val == val) {", "if (it->val != val) {"),
-            ("erase", "auto it = S.lower_bound(Node(l, 0, VAL()));",
-             "auto it = S.upper_bound(Node(l, 0, VAL()));"),
+            ("erase", "auto it = S.lower_bound(Node(l, l, VAL()));",
+             "auto it = S.upper_bound(Node(l, l, VAL()));"),
             ("output literal", 's << "(["', 's << "( ["'),
         )
         for name, before, after in changes:

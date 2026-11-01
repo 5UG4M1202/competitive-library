@@ -191,7 +191,6 @@ def normalize_interval_set(source: str) -> str:
     source = source.replace("static_cast<T>(l)", "(T)l")
     source = source.replace("static_cast<T>(r)", "(T)r")
     source = source.replace("static_cast<T>(r - l)", "(T)(r - l)")
-    source = source.replace("Node(l, T{},", "Node(l, 0,")
     source = source.replace("return (it != S.end() && r <= it->r);",
                             "return it != S.end() && r <= it->r;")
     source = source.replace("total_cover += (R - L)", "total_cover += R - L")
@@ -229,6 +228,11 @@ int main() {{
     if (intervals.contained_intervals_in(2, 8) != 3) return 1;
     if (intervals.contained_intervals_in(3, 8) != 2) return 2;
     if (intervals.contained_intervals_in(2, 6) != 2) return 3;
+    if (intervals.get_mex(2) != 8) return 4;
+    intervals.update(-10, -5, 1);
+    intervals.update(-10, -7, 2);
+    if (intervals.get_val(-10) != 2 || intervals.get_val(-7) != 1) return 5;
+    if (intervals.get_mex(-10) != -5) return 6;
   }}
 
   constexpr int domain = 32;

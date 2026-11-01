@@ -4,6 +4,10 @@
 
 ## 導線
 
+- [`docs/library-guide.md`](docs/library-guide.md): 操作や用途から利用する部品を探す。
+- [`docs/snippet-examples.md`](docs/snippet-examples.md): 二分探索・順列・格子方向など使用例の前提と依存関係。
+- [`docs/template-usage.md`](docs/template-usage.md): 提出用テンプレートの入出力・マクロ・依存関係。
+- [`docs/header-scope-review.md`](docs/header-scope-review.md): 独立ヘッダーと snippet の判断理由。
 - [`library/`](library/README.md): 提出コードから利用するヘッダー。
 - [`verify/`](verify/README.md): local / judge-backed 検証。
 - [`docs/maintenance.md`](docs/maintenance.md): 抽出、互換性、Release の運用方針。
@@ -25,6 +29,9 @@
 
 ## 現在の vertical slice
 
+- [Monoid と ACL セグメント木](library/data_structure/monoid_segtree.md): 区間集約と作用を型として定義し、ACL で利用。
+- [動的遅延セグメント木](library/data_structure/dynamic_lazy_segtree.md): 広い座標の区間更新・集約・境界探索。来歴は未確認。
+- [UnionFindWithPotential](library/data_structure/union_find_with_potential.md): 頂点間の重みの差と制約の整合性。
 - [`IntervalSet`](library/data_structure/interval_set.md): 値付き半開区間 map。
 - [`LazyReversibleRBST`](library/data_structure/lazy_reversible_rbst.md): 列の挿入・削除・区間作用・反転を扱う乱択平衡二分木。
 - [`EulerTour`](library/graph/euler_tour.md): 根付き木の LCA、パス和、部分木和、重み更新。

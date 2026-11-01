@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cassert>
+#include <limits>
+
 // The user reports creating this legacy @mydate snippet with AI assistance.
 // Copyright 2026 rrrriki. Copyrightable human-authored contributions are
 // licensed under Apache-2.0; this provenance report does not guarantee rights
@@ -27,6 +30,13 @@
  * @note 0=月, 1=火, 2=水, 3=木, 4=金, 5=土, 6=日
  */
 struct mydate {
+ private:
+  // 正の除数に対する床除算。
+  static long long floorDiv(long long x, long long divisor) {
+    return x / divisor - (x % divisor < 0);
+  }
+
+ public:
   int year, month, day;
   mydate(int year, int month, int day) : year(year), month(month), day(day) {}
   mydate() : year(0), month(0), day(0) {}
@@ -156,10 +166,10 @@ struct mydate {
   static long long toJulianDay(int y, int m, int d) {
     // 一般的なアルゴリズム(エラー対策省略、月日補正など)
     int a = (14 - m) / 12;
-    int yy = y + 4800 - a;
+    long long yy = static_cast<long long>(y) + 4800 - a;
     int mm = m + 12 * a - 3;
 
-    long long jd = static_cast<long long>(d) + ((153LL * mm + 2) / 5) + 365LL * yy + (yy / 4) - (yy / 100) + (yy / 400) - 32045LL;
+    long long jd = static_cast<long long>(d) + ((153LL * mm + 2) / 5) + 365LL * yy + floorDiv(yy, 4) - floorDiv(yy, 100) + floorDiv(yy, 400) - 32045LL;
 
     return jd;
   }
@@ -172,9 +182,11 @@ struct mydate {
    */
   static mydate fromJulianDay(long long jd) {
     // 参考: 「暦計算アルゴリズム」(Jean Meeus)などで紹介される標準的な式
+    assert(jd >= toJulianDay(std::numeric_limits<int>::min(), 1, 1));
+    assert(jd <= toJulianDay(std::numeric_limits<int>::max(), 12, 31));
     long long a = jd + 32044;
-    long long b = (4 * a + 3) / 146097;
-    long long c = a - (146097 * b) / 4;
+    long long b = floorDiv(4 * a + 3, 146097);
+    long long c = a - floorDiv(146097 * b, 4);
 
     long long d = (4 * c + 3) / 1461;
     long long e = c - (1461 * d) / 4;
@@ -201,18 +213,22 @@ struct mydate {
    */
   mydate addDays(long long days) const {
     long long jd = toJulianDay(year, month, day);
-    jd += days;
-    return fromJulianDay(jd);
+    assert(days >= toJulianDay(std::numeric_limits<int>::min(), 1, 1) - jd);
+    assert(days <= toJulianDay(std::numeric_limits<int>::max(), 12, 31) - jd);
+    return fromJulianDay(jd + days);
   }
 
   /**
-   * @brief this の日付に対して days 日だけ減算した結果を返す (内部的には addDays(-days))
+   * @brief this の日付に対して days 日だけ減算した結果を返す
    *
    * @param days 減算する日数
    * @return 新しい日付
    */
   mydate subDays(long long days) const {
-    return addDays(-days);
+    long long jd = toJulianDay(year, month, day);
+    assert(days >= jd - toJulianDay(std::numeric_limits<int>::max(), 12, 31));
+    assert(days <= jd - toJulianDay(std::numeric_limits<int>::min(), 1, 1));
+    return fromJulianDay(jd - days);
   }
 
   /**
@@ -227,11 +243,13 @@ struct mydate {
     // year, month を合算してトータルの「通算月数」に変換
     // 例: (year=2020, month=1) -> (2020*12 + 0) = 24240
     long long totalMonths = static_cast<long long>(year) * 12 + (month - 1);
+    assert(months >= static_cast<long long>(std::numeric_limits<int>::min()) * 12 - totalMonths);
+    assert(months <= static_cast<long long>(std::numeric_limits<int>::max()) * 12 + 11 - totalMonths);
     totalMonths += months;
 
     // 加算後を逆変換
-    long long newYear = totalMonths / 12;
-    long long newMonth = totalMonths % 12 + 1;
+    long long newYear = floorDiv(totalMonths, 12);
+    long long newMonth = totalMonths - newYear * 12 + 1;
 
     // 日が新しい月の日数を超える場合は月末に合わせる
     int dim = daysInMonth(static_cast<int>(newYear), static_cast<int>(newMonth));

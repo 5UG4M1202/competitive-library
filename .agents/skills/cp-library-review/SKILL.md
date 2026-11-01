@@ -12,4 +12,6 @@ description: Review or audit competitive-programming library code for correctnes
 5. Separate confirmed defects from concerns, contract ambiguities, and missing coverage. Check that characterization tests are not presented as proof of intended correctness.
 6. If no defect is confirmed, say so and list residual risks or untested areas.
 
+Check whether users can discover the component from their task and understand when to choose it over alternatives, including examples, dependencies, ownership, limits, and verification. Report material gaps without changing files during a read-only review.
+
 Do not modify code, tests, `cpp.json`, history, or external state unless the user separately requests a specific fix or action.

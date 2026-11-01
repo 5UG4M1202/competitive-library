@@ -10,5 +10,5 @@ layout: default
 {%- assign repository_url = site.github.repository_url | default: site.repository_url -%}
 {%- assign source_branch = site.branch_name | default: 'HEAD' -%}
 {%- assign snapshot_href = 'href="' | append: repository_url | append: '/blob/' | append: source_branch | append: '/cpp.json"' -%}
-{{- content | replace: 'href="../../LICENSE-SCOPE.md"', scope_href | replace: 'href="../../THIRD_PARTY_NOTICES.md"', notices_href | replace: 'href="THIRD_PARTY_NOTICES.md"', notices_href | replace: 'href="cpp.json"', snapshot_href -}}
+{{- content | replace: 'href="../../LICENSE-SCOPE.md"', scope_href | replace: 'href="../../THIRD_PARTY_NOTICES.md"', notices_href | replace: 'href="THIRD_PARTY_NOTICES.md"', notices_href | replace: 'href="cpp.json"', snapshot_href | replace: 'href="graph.md"', 'href="graph.hpp.html"' | replace: 'href="dijkstra.md"', 'href="dijkstra.hpp.html"' | replace: 'href="kruskal.md"', 'href="kruskal.hpp.html"' | replace: 'href="euler_tour.md"', 'href="euler_tour.hpp.html"' | replace: 'href="bipartite_graph.md"', 'href="bipartite_graph.hpp.html"' | replace: 'href="monoid_segtree.md"', 'href="monoid_segtree.hpp.html"' | replace: 'href="../../verify/local/monoid_segtree.test.cpp"', 'href="../../verify/local/monoid_segtree.test.cpp.html"' -}}
 </div>

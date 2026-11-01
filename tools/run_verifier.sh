@@ -37,6 +37,34 @@ python3 tools/test_interval_set_snippet_sync.py
 python3 tools/check_rbst_snippet_sync.py
 python3 tools/check_euler_tour_snippet_sync.py
 python3 tools/check_unresolved_snippet_sync.py
+python3 tools/check_potential_union_find_snippet_sync.py
+python3 tools/test_dynamic_lazy_segtree_snippet.py
+python3 tools/check_prime_util_snippet_sync.py
+python3 tools/check_rotate_matrix_snippet_sync.py
+python3 tools/check_levenstein_snippet_sync.py
+python3 tools/check_coord_compressor_snippet_sync.py
+python3 tools/check_cumulative_sum_2d_snippet_sync.py
+python3 tools/check_doubling_snippet_sync.py
+python3 tools/check_grid_snippet_sync.py
+python3 tools/check_bipartite_graph_snippet_sync.py
+python3 tools/check_graph_algorithms_snippet_sync.py
+python3 tools/check_k_shortest_path_snippet_sync.py
+python3 tools/check_rolling_hash_snippet_sync.py
+python3 tools/check_dual_segtree_snippet_sync.py
+python3 tools/check_rle_snippet_sync.py
+python3 tools/test_template_is_prime.py
+python3 tools/check_math_helpers_snippet_sync.py
+python3 tools/test_pair_hash_snippet.py
+python3 tools/test_to_digit_snippet.py
+python3 tools/test_mos_snippet.py
+python3 tools/test_meguru_snippet.py
+python3 tools/test_template_io_snippet.py
+python3 tools/test_template_macros.py
+python3 tools/test_template_full_expansion.py
+python3 tools/test_misc_snippets.py
+python3 tools/test_next_combination_snippet.py
+python3 tools/test_doc_navigation.py
+python3 tools/test_segtree_examples.py
 
 competitive-verifier oj-resolve \
   --include library verify \

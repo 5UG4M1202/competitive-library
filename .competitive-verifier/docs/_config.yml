@@ -9,5 +9,7 @@ exclude:
   - library/data_structure/README.md
   - library/graph/README.md
   - library/misc/README.md
+  - library/math/README.md
+  - library/string/README.md
   - verify/README.md
   - verify/local/README.md

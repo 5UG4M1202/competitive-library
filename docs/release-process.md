@@ -4,7 +4,7 @@
 
 ## 対象と参照URL
 
-- 保守対象6件は `library/` の対応ヘッダーを正本とし、`cpp.json` の該当エントリだけを同期して検査します。未整理のスニペットは一括再生成しません。
+- 対応付けた保守対象は `library/` のヘッダーを正本とし、`cpp.json` の該当部分だけを同期して検査します。対象と検査方法は [`maintenance.md`](maintenance.md) を参照してください。未整理のスニペットは一括再生成しません。
 - `cpp.json` の `cpptemplate` が展開する `source` は、そのスニペットを配布するReleaseの固定URL `https://github.com/5UG4M1202/competitive-library/releases/tag/<tag>` にします。旧版で生成済みのコードや、第三者の出典・ライセンスURLを一括更新しません。
 - tagは既存の暦日形式（例 `v2026.10.31`、同日重複時は `-2` 等）で決め、ローカルとリモートで未使用であることを確認します。候補のURLはRelease公開前には存在しなくてもよく、公開後に実際に確認します。
 - 生成ドキュメントの `blob/HEAD` は移動する参照です。Release版の固定参照と区別し、そのURLをRelease時点の内容の証拠には使いません。

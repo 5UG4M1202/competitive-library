@@ -116,12 +116,11 @@ struct IntervalSet {
   VAL operator[](const T& p) const { return get_val(p); }
 
   T get_mex(const T& p = 0) const {
-    auto it =
-        S.upper_bound(Node(p, std::numeric_limits<T>::max(), identity));
-    if (it == S.begin()) return p;
-    --it;
-    if (it->l <= p && p < it->r) return it->r;
-    return p;
+    auto it = get(p);
+    if (it == S.end()) return p;
+    T result = it->r;
+    for (++it; it != S.end() && it->l == result; ++it) result = it->r;
+    return result;
   }
 
   T covered_all() const { return total_cover; }
@@ -171,7 +170,7 @@ struct IntervalSet {
       user_del(L, R, V);
     };
 
-    auto it = S.lower_bound(Node(l, T{}, val));
+    auto it = S.lower_bound(Node(l, l, val));
     while (it != S.end() && it->l <= r) {
       if (it->l == r) {
         if (it->val == val) {
@@ -258,7 +257,7 @@ struct IntervalSet {
       user_del(L, R, V);
     };
 
-    auto it = S.lower_bound(Node(l, T{}, VAL()));
+    auto it = S.lower_bound(Node(l, l, VAL()));
     while (it != S.end() && it->l <= r) {
       if (it->l == r) break;
       if (it->r <= r) {

@@ -1,4 +1,5 @@
 {%- for top in page.data.top -%}
+{%- if top.categories.size > 0 -%}
 <h2>{{ top.type }}</h2>
 {%- for category in top.categories -%}
 <h3>{{ category.name }}</h3>
@@ -19,4 +20,5 @@
     {%- endfor -%}
 </ul>
 {%- endfor -%}
+{%- endif -%}
 {%- endfor -%}

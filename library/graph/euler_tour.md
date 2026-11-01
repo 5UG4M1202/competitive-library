@@ -13,31 +13,16 @@ documentation_of: ./euler_tour.hpp
 
 ## 最小利用例
 
-このヘッダーは `Graph<T>` を同梱していません。次の例では必要な最小インターフェースを呼び出し側で定義しています。リポジトリルートと AtCoder Library を include path に含め、C++17 以上でコンパイルしてください。
+このヘッダーは `Graph<T>` を同梱していません。別途分離した [グラフの基本型](graph.md) を使えます。リポジトリルートと AtCoder Library を include path に含め、C++17 以上でコンパイルしてください。
+
+生成された検証ページの `bundled` には、この例で使う `Graph<T>` も展開されています。ACL の `#include` は残るため、提出先でも ACL が必要です。`default` はヘッダーそのままで、別途 `Graph<T>` が必要です。独自の互換グラフ型を使う場合は `default` を選んでください。
+
+コード欄の「提出用の利用例」では、`Graph<T>`、`EulerTour` と下の例の `main()` を一括コピーできます。問題に合わせて `main()` を変更してください。
 
 ```cpp
-#include <cstddef>
 #include <iostream>
 #include <vector>
-
-template <typename T = int>
-struct Graph {
-  struct Edge {
-    int to;
-    T cost;
-  };
-
-  std::vector<std::vector<Edge>> g;
-  explicit Graph(int n) : g(n) {}
-  std::size_t size() const { return g.size(); }
-  std::vector<Edge>& operator[](int v) { return g[v]; }
-  const std::vector<Edge>& operator[](int v) const { return g[v]; }
-  void add_edge(int u, int v, T cost) {
-    g[u].push_back({v, cost});
-    g[v].push_back({u, cost});
-  }
-};
-
+#include "library/graph/graph.hpp"
 #include "library/graph/euler_tour.hpp"
 
 int main() {

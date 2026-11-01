@@ -17,19 +17,9 @@
 
 ## Intended-correctness coverage
 
-- 非負端点での上書き、分割、同値区間の結合、削除。
+- 負の端点を含む上書き、分割、同値区間の結合、削除。
 - 点・1 区間被覆、値取得、被覆長、callback 差分。
 - 左端・右端が保存区間境界と一致する範囲を含む、完全包含区間数。
-- 単一値の被覆集合としての `get_mex`。
+- 値の異なる隣接区間を含む被覆集合の `get_mex`。
 - 単純配列モデルとの seed 固定 5,000 operation 比較。
-
-## Characterization-only coverage
-
-次は元 snippet の既知挙動を再現するだけで、正しさを保証するテストではありません。
-
-| Case | Intended result | Current result |
-| --- | --- | --- |
-| `[0,1):1`, `[1,2):2` に `get_mex(0)` | `2` | `1` |
-| `update(-10,-5,1)` の後に `update(-10,-7,2)` | 2 個の非空区間 | 空区間を含む 3 node |
-
-上記 2 件の intended result を assertion する regression はまだ有効化していません。修正する変更では、現在挙動の characterization と期待仕様を明確に分離してください。
+- `interval_set_signed.test.cpp` では符号付き座標での更新・削除・照会と callback を配列モデルと比較します。
