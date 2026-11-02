@@ -8,6 +8,7 @@ exclude:
   - library/README.md
   - library/data_structure/README.md
   - library/graph/README.md
+  - library/geometry/README.md
   - library/misc/README.md
   - library/math/README.md
   - library/string/README.md

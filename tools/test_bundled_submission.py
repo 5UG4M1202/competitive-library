@@ -106,10 +106,12 @@ def main():
                                 'library/data_structure/dynamic_lazy_segtree.md', '9\n', 'struct RangeAdd'),
             'hld_example': ('library/graph/heavy_light_decomposition.hpp.html',
                             'library/graph/heavy_light_decomposition.md', '', 'class HeavyLightDecomposition'),
+            'convex_contains_example': ('library/geometry/integer_convex_contains.hpp.html',
+                            'library/geometry/integer_convex_contains.md', '', 'convex_hull('),
         }
         for name, (page, doc, expected, dependency) in examples.items():
             code = bundled(site / page, 'code-body-example')
-            if dependency not in code or '#include <atcoder/segtree>' not in code:
+            if dependency not in code or (name != 'convex_contains_example' and '#include <atcoder/segtree>' not in code):
                 raise ValueError(f'{name}: required dependency or external ACL include missing')
             if '#include "library/' in code:
                 raise ValueError(f'{name}: local include was not expanded')
@@ -122,7 +124,7 @@ def main():
             result = subprocess.run([str(binary)], check=True, text=True, capture_output=True)
             if result.stdout != expected:
                 raise ValueError(f'{name}: unexpected output {result.stdout!r}')
-    print('bundled libraries and complete EulerTour/dynamic segtree/HLD examples passed')
+    print('bundled libraries and complete EulerTour/dynamic segtree/HLD/geometry examples passed')
 
 
 if __name__ == '__main__':

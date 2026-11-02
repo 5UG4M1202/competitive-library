@@ -17,7 +17,7 @@
     {%- endif -%}
     <pre class="hljs {% unless forloop.first %}disable{% endunless %}" id="code-body-{{forloop.index}}"><code class="language-{{include.extension}}">{{ codeBody | xml_escape }}</code></pre>
 {%- endfor -%}
-{%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' -%}
+{%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' or page.data.path == 'library/geometry/integer_convex_contains.hpp' -%}
     {%- assign exampleCode = '' -%}
     {%- for source in include.embedded -%}
         {%- if source.name == 'bundled' -%}
@@ -30,14 +30,22 @@
     {%- elsif page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' -%}
         {%- assign dependency_path = 'library/data_structure/monoid_segtree.hpp' -%}
         {%- capture example_main -%}{% include submission_examples/dynamic_lazy_segtree.cpp %}{%- endcapture -%}
-    {%- else -%}
+    {%- elsif page.data.path == 'library/graph/heavy_light_decomposition.hpp' -%}
         {%- assign dependency_path = 'library/data_structure/monoid_segtree.hpp' -%}
         {%- capture example_main -%}{% include submission_examples/heavy_light_decomposition.cpp %}{%- endcapture -%}
+    {%- else -%}
+        {%- assign dependency_path = 'library/geometry/integer_convex_hull.hpp' -%}
+        {%- capture example_main -%}{% include submission_examples/integer_convex_contains.cpp %}{%- endcapture -%}
     {%- endif -%}
     {%- for candidate in site.pages -%}
         {%- if candidate.data.path == dependency_path -%}
             {%- for dependency in candidate.data.embedded -%}
-                {%- if dependency.name == 'bundled' -%}
+                {%- if page.data.path == 'library/geometry/integer_convex_contains.hpp' and dependency.name == 'default' -%}
+                    {% capture newline %}
+{% endcapture %}
+                    {%- assign extraCode = dependency.code | remove: '#include "integer_point.hpp"' | remove: '#pragma once' -%}
+                    {%- assign exampleCode = exampleCode | append: newline | append: extraCode | append: newline | append: example_main -%}
+                {%- elsif page.data.path != 'library/geometry/integer_convex_contains.hpp' and dependency.name == 'bundled' -%}
                     {% capture newline %}
 {% endcapture %}
                     {%- assign exampleCode = dependency.code | append: newline | append: exampleCode | append: newline | append: example_main -%}
@@ -53,7 +61,7 @@
         {%- for source in include.embedded -%}
             <button type="button" class="code-btn code-toggle-btn {% if forloop.first %}selected{% endif %}" data-target="code-body-{{forloop.index}}">{{source.name}}</button>
         {%- endfor -%}
-        {%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' -%}
+        {%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' or page.data.path == 'library/geometry/integer_convex_contains.hpp' -%}
             <button type="button" class="code-btn code-toggle-btn" data-target="code-body-example">提出用の利用例</button>
         {%- endif -%}
         </div>

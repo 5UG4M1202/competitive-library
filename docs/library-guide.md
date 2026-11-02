@@ -5,6 +5,18 @@
 | 要件 | 候補 | はじめに確認すること |
 | --- | --- | --- |
 | 点更新・区間集約 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | `op` の順序、単位元、初期値 |
+| 整数・実数の固定 N 次元点 | [N 次元の点](../library/geometry/point.md) | 座標型・中間型とオーバーフロー |
+| 整数点の向きや偏角順 | [整数点と偏角](../library/geometry/integer_point.md) | 軸・ゼロ・同方向と中間結果の範囲 |
+| 整数点集合の凸包 | [整数座標の凸包](../library/geometry/integer_convex_hull.md) | 重複点、辺上の点を残すか、整数の範囲 |
+| 凸包の点の内外・境界 | [整数凸包への点の包含判定](../library/geometry/integer_convex_contains.md) | 反時計回りの厳密な凸包、辺上の点 |
+| 整数点の最も離れた2点 | [整数点集合の最遠点対](../library/geometry/integer_farthest_pair.md) | 元の添字、重複点、二乗距離の範囲 |
+| 整数点の最も近い2点 | [整数点集合の最近点対](../library/geometry/integer_closest_pair.md) | 元の添字、重複点、二乗距離の範囲 |
+| 固定した整数点の矩形集約・点の値更新 | [矩形集約 kd-tree](../library/geometry/integer_kd_tree.md) | 可換 Monoid、半開矩形、最悪線形 |
+| 固定した実数座標の矩形集約・点の値更新 | [実数座標の矩形集約 kd-tree](../library/geometry/real_kd_tree.md) | 有限座標、丸め、半開矩形 |
+| 実数点の向きや偏角順 | [実数点と偏角](../library/geometry/real_point.md) | EPS、丸め、比較順 |
+| 実数点集合の凸包 | [実数座標の凸包](../library/geometry/real_convex_hull.md) | 重複・一直線・EPS |
+| 実数凸包の点の包含判定 | [実数凸包への点の包含判定](../library/geometry/real_convex_contains.md) | 厳密凸・反時計回り |
+| 実数点集合の最近・最遠点対 | [最近点対](../library/geometry/real_closest_pair.md)・[最遠点対](../library/geometry/real_farthest_pair.md) | EPS、距離の丸め |
 | 点更新・区間 gcd または bitwise AND・OR・XOR | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | 符号なし整数、演算ごとの空区間の値 |
 | 点更新・区間最小値とその出現回数 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | 空区間は `count == 0`、要素は `leaf` で構築 |
 | 区間更新と一点取得 | [双対セグメント木](../library/data_structure/dual_segtree.md) | 作用の合成順序、初期値と作用の型 |

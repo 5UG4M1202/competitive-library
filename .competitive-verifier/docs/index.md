@@ -6,6 +6,19 @@
 
 ## 収録内容
 
+- [N 次元の点]({{ '/library/geometry/point.hpp.html' | relative_url }}): 整数・実数座標と次元別の基本演算
+- [整数点と偏角]({{ '/library/geometry/integer_point.hpp.html' | relative_url }}): 向き・内積・外積と偏角順。ゼロと整数範囲に注意
+- [整数座標の凸包]({{ '/library/geometry/integer_convex_hull.hpp.html' | relative_url }}): 重複と一直線を扱い、辺上の点を残すか選択
+- [整数凸包への点の包含判定]({{ '/library/geometry/integer_convex_contains.hpp.html' | relative_url }}): 内部・境界・外部を厳密な凸包上で判定
+- [整数点集合の最遠点対]({{ '/library/geometry/integer_farthest_pair.hpp.html' | relative_url }}): 元の点番号と距離の二乗を取得
+- [整数点集合の最近点対]({{ '/library/geometry/integer_closest_pair.hpp.html' | relative_url }}): 重複を許す元の点番号と距離の二乗を取得
+- [整数点の矩形集約 kd-tree]({{ '/library/geometry/integer_kd_tree.hpp.html' | relative_url }}): 可換 Monoid の矩形集約と登録済み点の値更新
+- [実数座標の矩形集約 kd-tree]({{ '/library/geometry/real_kd_tree.hpp.html' | relative_url }}): long double 座標の矩形集約。有限座標・丸めに注意
+- [実数点と偏角]({{ '/library/geometry/real_point.hpp.html' | relative_url }}): long double と EPS、偏角順の比較
+- [実数座標の凸包]({{ '/library/geometry/real_convex_hull.hpp.html' | relative_url }}): 有限座標の凸包、境界上の点の扱いを選択
+- [実数凸包への点の包含判定]({{ '/library/geometry/real_convex_contains.hpp.html' | relative_url }}): 厳密な凸包の内外・境界
+- [実数点集合の最近点対]({{ '/library/geometry/real_closest_pair.hpp.html' | relative_url }}): long double による近似
+- [実数点集合の最遠点対]({{ '/library/geometry/real_farthest_pair.hpp.html' | relative_url }}): long double による近似
 - [Monoid と ACL セグメント木]({{ '/library/data_structure/monoid_segtree.hpp.html' | relative_url }}): 区間和・最小・最大、gcd・bitwise・最小値の回数、区間加算・代入・一次変換。初期値と数値範囲に注意
 - [動的遅延セグメント木]({{ '/library/data_structure/dynamic_lazy_segtree.hpp.html' | relative_url }}): 広い整数座標での区間更新・集約。初期集約、メモリ所有権、未確認の来歴に注意
 - [PrimeUtil]({{ '/library/math/prime_util.hpp.html' | relative_url }}): 上限以下の多数の値の素数判定・素因数分解・約数列挙
@@ -38,7 +51,7 @@
 ## 検証方針
 
 - 各実装について、境界テストと seed 固定のランダム比較を使います。IntervalSet は負の端点や異なる値の隣接区間も検証します。
-- 多くの境界・ランダム比較は `STANDALONE` テストです。HLD の頂点パスの関数合成は Library Checker の問題でも検証し、API 全体が検証済みとは扱いません。
+- 多くの境界・ランダム比較は `STANDALONE` テストです。HLD、整数幾何などは対応する Library Checker の問題でも検証しますが、その問題が扱わない API 全体が検証済みとは扱いません。
 - EulerTour の部分木一括加算と根の点更新は正しさ回帰および素朴比較で検証します。緑の検証結果や `LIBRARY_ALL_AC` のアイコンは、記載された範囲のテストが通ったことだけを示し、未検証入力まで保証するものではありません。
 
 人向けのリポジトリ構成、ローカル実行、AI向け保守規則はリポジトリの `README.md` と `AGENTS.md` を参照してください。

@@ -10,13 +10,19 @@ INDEX = ROOT / '.competitive-verifier/docs/index.md'
 
 def main():
     layout = LAYOUT.read_text(encoding='utf-8')
+    if "replace: 'href=\"../../docs/kd-tree-design.md\"', kd_design_href" not in layout:
+        raise ValueError('missing generated-site rewrite for the KD-tree design document')
     pairs = re.findall(r'''replace:\s*'href="([^"']+)"',\s*'href="([^"']+)"' ''', layout + ' ')
     rewrites = dict(pairs)
     checked = 0
     for doc in (ROOT / 'library').rglob('*.md'):
         if doc.name == 'README.md':
             continue
-        for link in re.findall(r'\]\(([^)]+\.md)\)', doc.read_text(encoding='utf-8')):
+        body = doc.read_text(encoding='utf-8')
+        for code in re.findall(r'```[\s\S]*?```|`[^`\n]*`', body):
+            if '{{' in code or '{%' in code:
+                raise ValueError(f'{doc.relative_to(ROOT)}: Liquid delimiter in code; separate braces')
+        for link in re.findall(r'\]\(([^)]+\.md)\)', body):
             if '/' in link or ':' in link or link.startswith('#'):
                 continue
             expected = link[:-3] + '.hpp.html'
@@ -55,6 +61,11 @@ def main():
         lines = test.read_text(encoding='utf-8').splitlines()
         if '// competitive-verifier: STANDALONE' not in lines or '// competitive-verifier: DISPLAY no-index' not in lines:
             raise ValueError(f'{test.relative_to(ROOT)}: local test should be verified and hidden from the index')
+    geometry_doc = (ROOT / 'library/geometry/integer_point.md').read_text(encoding='utf-8')
+    geometry_test = (ROOT / 'verify/local/geometry_semicircle.test.cpp').read_text(encoding='utf-8')
+    example = re.search(r'```cpp\n(int max_open_semicircle\(.*?\n})\n```', geometry_doc, re.S)
+    if not example or example.group(1) not in geometry_test:
+        raise ValueError('integer geometry semicircle example differs from its test')
     print(f'Verifier site: {checked} sibling documentation links have valid rewrites')
     print(f'Verifier site: {len(index_links)} index links have matching headers and documentation')
     print(f'Verifier site: {len(local_tests)} local tests are configured as standalone and no-index')

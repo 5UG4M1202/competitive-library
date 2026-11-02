@@ -8,6 +8,7 @@
 
 - [`data_structure/`](data_structure/README.md): データ構造。
 - [`graph/`](graph/README.md): 木・グラフアルゴリズム。
+- [`geometry/`](geometry/README.md): 整数点、偏角と凸包。整数と実数の幾何は分けて扱う。
 - [`math/`](math/README.md): 整数・数論。
 - [`string/`](string/README.md): 文字列アルゴリズム。
 - [`misc/`](misc/README.md): 日付などの汎用部品。
