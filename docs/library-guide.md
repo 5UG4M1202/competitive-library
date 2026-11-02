@@ -1,5 +1,7 @@
 # やりたいことから探す
 
+木の非可換なパス集約・方向別の辺値には [重軽分解](../library/graph/heavy_light_decomposition.md) を利用できます。[設計案](hld-design.md)には背景と未対応事項を記録しています。
+
 | 要件 | 候補 | はじめに確認すること |
 | --- | --- | --- |
 | 点更新・区間集約 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | `op` の順序、単位元、初期値 |
@@ -20,6 +22,7 @@
 | 単発の素因数分解・約数列挙や素数表 | [試し割りと素数表](../library/math/trial_division.md) | 正の整数、試し割りの計算量 |
 | 整数除算の切り上げ・切り下げ | [整数除算の丸め](../library/math/integer_division.md) | 負の除数、0 除算、型の限界 |
 | 根付き木の LCA・パス・部分木 | [EulerTour](../library/graph/euler_tour.md) | 木の構築、重みと区間の扱い |
+| 非可換なパス集約・方向別の辺の値 | [重軽分解](../library/graph/heavy_light_decomposition.md) | 根、頂点・辺、往復の値、結合順序 |
 | 次の頂点が一意の遷移を繰り返す | [ダブリング](../library/graph/doubling.md) | 行き止まりの番兵、最大歩数と構築するビット数 |
 | 壁のあるグリッドの上下左右の最短距離・到達判定 | [グリッド探索](../library/graph/grid.md) | 座標の順序、壁、訪問済み状態 |
 | 二部グラフの判定と彩色 | [二部グラフ判定](../library/graph/bipartite_graph.md) | 辺の形式、彩色できる条件、ACL 依存 |

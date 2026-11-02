@@ -30,6 +30,7 @@
 - [IntervalSet]({{ '/library/data_structure/interval_set.hpp.html' | relative_url }}): 値付き半開区間 `[l, r)` の上書き・分割・結合。負の端点と異なる値の隣接区間にも対応
 - [LazyReversibleRBST]({{ '/library/data_structure/lazy_reversible_rbst.hpp.html' | relative_url }}): 動的列の挿入・削除・区間集約・作用・反転
 - [EulerTour]({{ '/library/graph/euler_tour.hpp.html' | relative_url }}): 根付き木の LCA、辺・頂点のパス和、部分木和、重み更新
+- [重軽分解と方向付きパス集約]({{ '/library/graph/heavy_light_decomposition.hpp.html' | relative_url }}): 非可換なパス集約と方向別の辺の値
 - [DistinctKSegments]({{ '/library/data_structure/distinct_k_segments.hpp.html' | relative_url }}): 連続区間分割の異なる値の個数の最大化
 - [NQueen]({{ '/library/data_structure/nqueen.hpp.html' | relative_url }}): クイーン配置と探索
 - [mydate]({{ '/library/misc/mydate.hpp.html' | relative_url }}): 年 0 と負の年を含む先発グレゴリオ暦の日付演算
@@ -37,7 +38,7 @@
 ## 検証方針
 
 - 各実装について、境界テストと seed 固定のランダム比較を使います。IntervalSet は負の端点や異なる値の隣接区間も検証します。
-- 現在は `STANDALONE` テストのみです。各汎用 API 全体に自然に適合する judge-backed problem は未選定です。
+- 多くの境界・ランダム比較は `STANDALONE` テストです。HLD の頂点パスの関数合成は Library Checker の問題でも検証し、API 全体が検証済みとは扱いません。
 - EulerTour の部分木一括加算と根の点更新は正しさ回帰および素朴比較で検証します。緑の検証結果や `LIBRARY_ALL_AC` のアイコンは、記載された範囲のテストが通ったことだけを示し、未検証入力まで保証するものではありません。
 
 人向けのリポジトリ構成、ローカル実行、AI向け保守規則はリポジトリの `README.md` と `AGENTS.md` を参照してください。

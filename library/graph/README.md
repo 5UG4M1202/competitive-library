@@ -12,5 +12,6 @@
 | [グリッド探索](grid.md) | [grid.hpp](grid.hpp) | 壁のある格子の上下左右探索 | ローカル境界・ランダム比較で検証 |
 | [ダブリング](doubling.md) | [doubling.hpp](doubling.hpp) | 一意な遷移を繰り返した先 | ローカル境界・ランダム比較で検証 |
 | [`EulerTour`](euler_tour.md) | [`euler_tour.hpp`](euler_tour.hpp) | 根付き木の LCA、パス和、部分木和、重み更新 | ローカル境界・ランダム比較で検証 |
+| [重軽分解](heavy_light_decomposition.md) | [heavy_light_decomposition.hpp](heavy_light_decomposition.hpp) | 順序付きパス集約と方向別の辺の値 | 全頂点対の素朴比較・区間更新で検証 |
 
 `EulerTour` は AtCoder Library の `segtree` / `lazy_segtree` と、隣接辺に `to`・`cost` を持つ既存の `Graph<E_T>` を利用します。

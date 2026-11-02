@@ -104,6 +104,8 @@ def main():
                               '0 10 90\n60\n80 110\n', 'struct Graph {'),
             'dynamic_example': ('library/data_structure/dynamic_lazy_segtree.hpp.html',
                                 'library/data_structure/dynamic_lazy_segtree.md', '9\n', 'struct RangeAdd'),
+            'hld_example': ('library/graph/heavy_light_decomposition.hpp.html',
+                            'library/graph/heavy_light_decomposition.md', '', 'class HeavyLightDecomposition'),
         }
         for name, (page, doc, expected, dependency) in examples.items():
             code = bundled(site / page, 'code-body-example')
@@ -120,7 +122,7 @@ def main():
             result = subprocess.run([str(binary)], check=True, text=True, capture_output=True)
             if result.stdout != expected:
                 raise ValueError(f'{name}: unexpected output {result.stdout!r}')
-    print('bundled libraries and complete EulerTour/dynamic segtree examples passed')
+    print('bundled libraries and complete EulerTour/dynamic segtree/HLD examples passed')
 
 
 if __name__ == '__main__':
