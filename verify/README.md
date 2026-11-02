@@ -3,9 +3,14 @@
 ## Layout
 
 - `local/`: `competitive-verifier: STANDALONE` の決定的ユニットテスト。
-- `aoj/`, `yosupo/`: 実際に適合する問題が見つかった時だけ追加する judge-backed test。空ディレクトリは作りません。
+- `yosupo/`: 対応する Library Checker の問題を使う judge-backed test。HLD の非可換な頂点パス集約と部分木和、重み付き Union-Find の合同差分、双対セグメント木の区間更新・一点取得、動的遅延セグメント木の区間一次変換・区間和を検証します。
+- `aoj/` など: 実際に適合する問題が見つかった時だけ追加します。空ディレクトリは作りません。
 
 IntervalSet、LazyReversibleRBST、EulerTour の汎用 API 全体に自然に対応する公開問題は今回選定していません。無関係な問題を `PROBLEM` に指定するより、境界テストと単純実装とのランダム比較を維持します。
+
+Library Checker のテストは、verifier が公式問題リポジトリを取得してケースを生成するため、初回にはネットワーク・Git と生成時間が必要です。問題が確認する操作だけの証拠であり、HLD の方向別の辺の値など、問題が扱わない機能の検証にはローカル比較も必要です。
+
+各テストには対象問題の URL を `PROBLEM` で記載し、そのライブラリを呼ぶ提出形式の `main` を書きます。`oj-resolve` が依存するヘッダーとテストを収集し、verifier は公式リポジトリの生成器と正解プログラムを使って入力・期待出力を作成します。テストをコンパイルして各ケースに入力し、通常は期待出力と比較し、問題に専用 checker があればそれで判定します。これは GitHub Actions 上またはローカルでの実行であり、Library Checker のサイトへの提出ではありません。生成済みのケースは verifier の cache に保存され、取得・生成のコストはキャッシュの状態によって変わります。CI の `check: true` で失敗を job に反映します。
 
 ## Local setup
 

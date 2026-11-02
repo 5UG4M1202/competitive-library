@@ -21,4 +21,6 @@ uf.merge(1, 2, 3);  // P(1) - P(2) = 3
 
 メモリは `O(N)`、初期化は `O(N)`、各操作は重み付き併合と経路圧縮により償却 `O(α(N))` です（`T` の演算を定数時間と仮定）。
 
+[Library Checker: Unionfind with Potential](https://judge.yosupo.jp/problem/unionfind_with_potential) では、mod 998244353 の差分と矛盾する併合を検証します。
+
 実装は [NyaanNyaan/library](https://github.com/NyaanNyaan/library/blob/b3981adc80a800b2584980b01821324ea6c77183/data-structure/union-find-with-potential.hpp) の CC0-1.0 実装に標準ヘッダーと名前修飾を補ったものです。詳細は [第三者通知](../../THIRD_PARTY_NOTICES.md) を参照してください。

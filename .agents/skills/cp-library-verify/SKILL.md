@@ -9,6 +9,7 @@ description: Add, repair, or assess competitive-programming library tests and co
 2. Label each test as intended-correctness, characterization, or a known failing regression. Keep minimal counterexamples and expected mathematical results; never weaken expectations to make a suite green.
 3. Run the available compiler and deterministic local tests. Do not change production code unless the user separately authorizes a fix.
 4. Use `PROBLEM` only for a supported problem that actually models the target API. Otherwise use `STANDALONE` or `LOCALCASE` and state why no judge-backed test was added.
+   Library Checker problems are useful for externally checked, realistic workloads when their contracts match; retain local boundary and randomized tests for behaviors the selected problem does not exercise. Account for the judge data download and generation costs in local and CI runs.
 5. Before changing verifier integration, confirm the current official `STANDALONE`, `LOCALCASE`, `PROBLEM`, and `documentation_of` interfaces. Keep GitHub Actions configured so test failures fail the job; do not rely on a default that skips checks.
 6. For a mapped maintained snippet, verify its JSON shape, provenance notices, mapped implementation consistency, and representative template compilation without changing unrelated entries.
 7. Report separately what was executed, what was only drafted, and what was not tested.

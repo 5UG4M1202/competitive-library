@@ -28,4 +28,6 @@ auto y = seg.get(1).b; // 7
 
 `apply(l,r,f)` は半開区間 `[l,r)`、`get(p)` は一点です。`0 <= l <= r <= n`、`0 <= p < n`、`0 <= n <= 2^29` を満たし、確保する `O(n)` のメモリと作用の演算結果が型に収まる必要があります。空区間への更新とサイズ 0 は使用できます。初期化は `O(n)`、更新と取得は作用の合成が `O(1)` のとき `O(log(n+1))` です。
 
+[Library Checker: Range Affine Point Get](https://judge.yosupo.jp/problem/range_affine_point_get) では、非可換な一次変換の区間更新と一点取得を検証します。
+
 境界の遅延伝播処理は [ACL の lazy_segtree v1.6](https://github.com/atcoder/ac-library/blob/v1.6/atcoder/lazysegtree.hpp) と非常に似ており、比較版は CC0 です。ただし実際の来歴は未確認です。従来のグローバルな補助関数 `ceil_pow2` は、ヘッダーでは名前の衝突を避けて `dual_segtree_ceil_pow2` にしています。非可換な一次変換を配列とランダム比較して検証しています。
