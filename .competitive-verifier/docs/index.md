@@ -12,8 +12,8 @@
 - [整数凸包への点の包含判定]({{ '/library/geometry/integer_convex_contains.hpp.html' | relative_url }}): 内部・境界・外部を厳密な凸包上で判定
 - [整数点集合の最遠点対]({{ '/library/geometry/integer_farthest_pair.hpp.html' | relative_url }}): 元の点番号と距離の二乗を取得
 - [整数点集合の最近点対]({{ '/library/geometry/integer_closest_pair.hpp.html' | relative_url }}): 重複を許す元の点番号と距離の二乗を取得
-- [整数点の矩形集約 kd-tree]({{ '/library/geometry/integer_kd_tree.hpp.html' | relative_url }}): 可換 Monoid の矩形集約と登録済み点の値更新
-- [実数座標の矩形集約 kd-tree]({{ '/library/geometry/real_kd_tree.hpp.html' | relative_url }}): long double 座標の矩形集約。有限座標・丸めに注意
+- [整数点の矩形集約 kd-tree]({{ '/library/geometry/integer_kd_tree.hpp.html' | relative_url }}): 矩形集約・点更新・最近傍・点番号列挙
+- [実数座標の矩形集約 kd-tree]({{ '/library/geometry/real_kd_tree.hpp.html' | relative_url }}): long double 座標の矩形集約・最近傍・列挙。丸めに注意
 - [実数点と偏角]({{ '/library/geometry/real_point.hpp.html' | relative_url }}): long double と EPS、偏角順の比較
 - [実数座標の凸包]({{ '/library/geometry/real_convex_hull.hpp.html' | relative_url }}): 有限座標の凸包、境界上の点の扱いを選択
 - [実数凸包への点の包含判定]({{ '/library/geometry/real_convex_contains.hpp.html' | relative_url }}): 厳密な凸包の内外・境界

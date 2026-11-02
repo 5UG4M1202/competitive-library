@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <limits>
 #include <numeric>
+#include <optional>
 #include <vector>
 
 namespace cp::geometry {
@@ -16,6 +17,7 @@ template <class M>
 class RealKdTree {
  public:
   using value_type = typename M::value_type;
+  struct Nearest { std::size_t index; long double distance2; };
 
   RealKdTree(const std::vector<RealPoint>& points, const std::vector<value_type>& values)
       : locations_(points.size()) {
@@ -25,6 +27,7 @@ class RealKdTree {
     std::vector<std::size_t> order(points.size());
     std::iota(order.begin(), order.end(), std::size_t{0});
     nodes_.reserve(points.size());
+    ids_.reserve(points.size());
     root_ = build(points, order, values, 0, order.size(), 0, -1);
   }
 
@@ -41,6 +44,28 @@ class RealKdTree {
     return query(root_, xl, xr, yl, yr);
   }
 
+  std::optional<Nearest> nearest(RealPoint p) const {
+    assert(std::isfinite(p.x) && std::isfinite(p.y));
+    std::optional<Nearest> best;
+    nearest_impl(root_,p,best);
+    return best;
+  }
+
+  template <class Visit>
+  void for_each_in_rect(long double xl, long double xr, long double yl, long double yr, Visit&& visit) const {
+    assert(!std::isnan(xl) && !std::isnan(xr) && !std::isnan(yl) && !std::isnan(yr));
+    if (!(xl < xr && yl < yr)) return;
+    const auto walk = [&](auto&& self, int v) -> void {
+      if (v == -1) return;
+      const auto& n = nodes_[v];
+      if (n.xmax < xl || xr <= n.xmin || n.ymax < yl || yr <= n.ymin) return;
+      if (xl <= n.point.x && n.point.x < xr && yl <= n.point.y && n.point.y < yr) visit(ids_[v]);
+      self(self,n.left);
+      self(self,n.right);
+    };
+    walk(walk,root_);
+  }
+
  private:
   struct Node {
     RealPoint point;
@@ -49,6 +74,7 @@ class RealKdTree {
     value_type value, aggregate;
   };
   std::vector<int> locations_;
+  std::vector<std::size_t> ids_;
   std::vector<Node> nodes_;
   int root_ = -1;
 
@@ -69,6 +95,7 @@ class RealKdTree {
     const auto p = points[id];
     const int v = static_cast<int>(nodes_.size());
     nodes_.push_back({p, parent, -1, -1, p.x, p.x, p.y, p.y, values[id], values[id]});
+    ids_.push_back(id);
     locations_[id] = v;
     const int left = build(points, order, values, l, mid, 1 - axis, v);
     const int right = build(points, order, values, mid + 1, r, 1 - axis, v);
@@ -89,6 +116,26 @@ class RealKdTree {
     if (nodes_[v].left != -1) result = M::op(result, nodes_[nodes_[v].left].aggregate);
     if (nodes_[v].right != -1) result = M::op(result, nodes_[nodes_[v].right].aggregate);
     nodes_[v].aggregate = result;
+  }
+
+  long double box_distance(int v, RealPoint p) const {
+    const auto& n = nodes_[v];
+    const long double dx = p.x < n.xmin ? n.xmin - p.x : p.x > n.xmax ? p.x - n.xmax : 0;
+    const long double dy = p.y < n.ymin ? n.ymin - p.y : p.y > n.ymax ? p.y - n.ymax : 0;
+    return dx*dx + dy*dy;
+  }
+
+  void nearest_impl(int v, RealPoint p, std::optional<Nearest>& best) const {
+    if (v == -1 || (best && box_distance(v,p) >= best->distance2)) return;
+    const auto& n = nodes_[v];
+    const auto dx = n.point.x-p.x, dy = n.point.y-p.y;
+    const auto d = dx*dx + dy*dy;
+    if (!best || d < best->distance2) best = Nearest{ids_[v],d};
+    int first = n.left, second = n.right;
+    if (first == -1 || (second != -1 && box_distance(second,p) < box_distance(first,p)))
+      std::swap(first,second);
+    nearest_impl(first,p,best);
+    nearest_impl(second,p,best);
   }
 
   value_type query(int v, long double xl, long double xr, long double yl, long double yr) const {

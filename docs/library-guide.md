@@ -13,6 +13,7 @@
 | 整数点の最も近い2点 | [整数点集合の最近点対](../library/geometry/integer_closest_pair.md) | 元の添字、重複点、二乗距離の範囲 |
 | 固定した整数点の矩形集約・点の値更新 | [矩形集約 kd-tree](../library/geometry/integer_kd_tree.md) | 可換 Monoid、半開矩形、最悪線形 |
 | 固定した実数座標の矩形集約・点の値更新 | [実数座標の矩形集約 kd-tree](../library/geometry/real_kd_tree.md) | 有限座標、丸め、半開矩形 |
+| 固定した点の最近傍・矩形内の点番号列挙 | [整数 KD-tree](../library/geometry/integer_kd_tree.md)・[実数 KD-tree](../library/geometry/real_kd_tree.md) | 番号、半開境界、同距離、最悪線形 |
 | 実数点の向きや偏角順 | [実数点と偏角](../library/geometry/real_point.md) | EPS、丸め、比較順 |
 | 実数点集合の凸包 | [実数座標の凸包](../library/geometry/real_convex_hull.md) | 重複・一直線・EPS |
 | 実数凸包の点の包含判定 | [実数凸包への点の包含判定](../library/geometry/real_convex_contains.md) | 厳密凸・反時計回り |

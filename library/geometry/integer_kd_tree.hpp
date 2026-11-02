@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <limits>
 #include <numeric>
+#include <optional>
 #include <vector>
 
 namespace cp::geometry {
@@ -15,6 +16,7 @@ template <class M>
 class IntegerKdTree {
  public:
   using value_type = typename M::value_type;
+  struct Nearest { std::size_t index; IntegerWide distance2; };
 
   IntegerKdTree(const std::vector<IntegerPoint>& points,
                 const std::vector<value_type>& values)
@@ -24,6 +26,7 @@ class IntegerKdTree {
     std::vector<std::size_t> order(points.size());
     std::iota(order.begin(), order.end(), std::size_t{0});
     nodes_.reserve(points.size());
+    ids_.reserve(points.size());
     root_ = build(order, values, 0, order.size(), 0, -1);
     std::vector<IntegerPoint>().swap(points_);  // Only needed during construction.
   }
@@ -53,6 +56,29 @@ class IntegerKdTree {
     return query(root_, left, right, bottom, top);
   }
 
+  // Caller ensures each squared point distance fits in IntegerWide.
+  std::optional<Nearest> nearest(IntegerPoint p) const {
+    std::optional<Nearest> best;
+    nearest_impl(root_, p, best);
+    return best;
+  }
+
+  template <class Visit>
+  void for_each_in_rect(IntegerWide xl, IntegerWide xr, IntegerWide yl, IntegerWide yr, Visit&& visit) const {
+    if (xl >= xr || yl >= yr) return;
+    const auto walk = [&](auto&& self, int v) -> void {
+      if (v == -1) return;
+      const auto& n = nodes_[v];
+      if (IntegerWide(n.xmax) < xl || xr <= IntegerWide(n.xmin) ||
+          IntegerWide(n.ymax) < yl || yr <= IntegerWide(n.ymin)) return;
+      if (xl <= IntegerWide(n.point.x) && IntegerWide(n.point.x) < xr &&
+          yl <= IntegerWide(n.point.y) && IntegerWide(n.point.y) < yr) visit(ids_[v]);
+      self(self, n.left);
+      self(self, n.right);
+    };
+    walk(walk, root_);
+  }
+
  private:
   struct Node {
     IntegerPoint point;
@@ -62,6 +88,7 @@ class IntegerKdTree {
   };
   std::vector<IntegerPoint> points_;
   std::vector<int> locations_;
+  std::vector<std::size_t> ids_;
   std::vector<Node> nodes_;
   int root_ = -1;
 
@@ -81,6 +108,7 @@ class IntegerKdTree {
     const auto p = points_[id];
     const int v = static_cast<int>(nodes_.size());
     nodes_.push_back({p, parent, -1, -1, p.x, p.x, p.y, p.y, values[id], values[id]});
+    ids_.push_back(id);
     locations_[id] = v;
     const int left = build(order, values, l, mid, 1 - axis, v);
     const int right = build(order, values, mid + 1, r, 1 - axis, v);
@@ -101,6 +129,26 @@ class IntegerKdTree {
     if (nodes_[v].left != -1) result = M::op(result, nodes_[nodes_[v].left].aggregate);
     if (nodes_[v].right != -1) result = M::op(result, nodes_[nodes_[v].right].aggregate);
     nodes_[v].aggregate = result;
+  }
+
+  IntegerWide box_distance(int v, IntegerPoint p) const {
+    const auto& n = nodes_[v];
+    const IntegerWide x = p.x, y = p.y;
+    const IntegerWide dx = x < n.xmin ? IntegerWide(n.xmin) - x : x > n.xmax ? x - IntegerWide(n.xmax) : 0;
+    const IntegerWide dy = y < n.ymin ? IntegerWide(n.ymin) - y : y > n.ymax ? y - IntegerWide(n.ymax) : 0;
+    return dx*dx + dy*dy;
+  }
+
+  void nearest_impl(int v, IntegerPoint p, std::optional<Nearest>& best) const {
+    if (v == -1 || (best && box_distance(v,p) >= best->distance2)) return;
+    const auto& n = nodes_[v];
+    auto d = squared_distance(n.point,p);
+    if (!best || d < best->distance2) best = Nearest{ids_[v],d};
+    int first = n.left, second = n.right;
+    if (first == -1 || (second != -1 && box_distance(second,p) < box_distance(first,p)))
+      std::swap(first,second);
+    nearest_impl(first,p,best);
+    nearest_impl(second,p,best);
   }
 
   value_type query(int v, std::int64_t xl, std::int64_t xr,

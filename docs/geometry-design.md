@@ -6,7 +6,7 @@
 
 整数凸包への包含判定、最遠点対、最近点対も提供します。今後は、線分の位置関係と交差、多角形や円などを用途に応じて検討します。問題ごとの入出力はテスト側に置き、汎用 API の境界や返り値は別に決めます。各機能は対応する Library Checker などの実問題に加え、対象問題では出現しない退化入力と小さい例の素朴比較で検査します。
 
-固定点集合の矩形集約は [整数版](../library/geometry/integer_kd_tree.md) と [実数座標版](../library/geometry/real_kd_tree.md) を提供します。最近傍・列挙は未実装です。[静的2次元 kd-tree の調査と設計案](kd-tree-design.md) も参照してください。
+固定点集合の矩形集約・点列挙・最近傍は [整数版](../library/geometry/integer_kd_tree.md) と [実数座標版](../library/geometry/real_kd_tree.md) を提供します。[静的2次元 kd-tree の調査と設計案](kd-tree-design.md) も参照してください。
 
 ## 座標型と EPS
 
