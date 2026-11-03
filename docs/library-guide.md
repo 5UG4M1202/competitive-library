@@ -8,6 +8,8 @@
 | Monoid を自分で定義する | [Monoid 定義ガイド](../library/data_structure/monoid_segtree.md#monoid-定義ガイド) | 値・結合・単位元、可換性、テスト |
 | 整数・実数の固定 N 次元点 | [N 次元の点](../library/geometry/point.md) | 座標型・中間型とオーバーフロー |
 | 整数点の向きや偏角順 | [整数点と偏角](../library/geometry/integer_point.md) | 軸・ゼロ・同方向と中間結果の範囲 |
+| 線分交差・直線交点 | [整数版](../library/geometry/integer_segment.md)・[実数版](../library/geometry/real_segment.md) | 重なり・退化、整数範囲、EPS |
+| 固定列の区間順位・値域個数 | [Wavelet Matrix](../library/data_structure/wavelet_matrix.md) | 値の更新不可、0 始まり順位、メモリ |
 | 整数点集合の凸包 | [整数座標の凸包](../library/geometry/integer_convex_hull.md) | 重複点、辺上の点を残すか、整数の範囲 |
 | 凸包の点の内外・境界 | [整数凸包への点の包含判定](../library/geometry/integer_convex_contains.md) | 反時計回りの厳密な凸包、辺上の点 |
 | 整数点の最も離れた2点 | [整数点集合の最遠点対](../library/geometry/integer_farthest_pair.md) | 元の添字、重複点、二乗距離の範囲 |
@@ -32,8 +34,11 @@
 | 値付き区間の分割・上書き | [IntervalSet](../library/data_structure/interval_set.md) | 半開区間、番兵、値の境界 |
 | 重みの差を持つ連結成分 | [UnionFindWithPotential](../library/data_structure/union_find_with_potential.md) | `diff(x,y)` の符号、矛盾判定 |
 | 通常の連結成分 | [ACL dsu](https://atcoder.github.io/ac-library/production/document_ja/dsu.html) | 頂点の範囲、`merge` の戻り値 |
+| 一点加算・区間和、有向グラフの強連結成分・2-SAT | [ACL の代表的な機能](../.competitive-verifier/docs/static/acl-usage.md) | ACL が提出先で使えること、0 始まり・半開区間 |
 | 複数配列をまとめて座標圧縮・復元 | [座標圧縮](../library/data_structure/coord_compressor.md) | 値の型の条件、再 build 時の対応の置換 |
+| 列全体の転倒数と各要素の寄与 | [転倒数](../library/data_structure/inversion_count.md) | 座標圧縮込み、左・右の寄与、重複値、ACL 依存 |
 | 固定された格子で矩形和を繰り返し取得 | [二次元累積和](../library/data_structure/cumulative_sum_2d.md) | 座標順序、先に一度 build、メモリ |
+| 長方形の和集合の面積 | [矩形和集合面積](../library/geometry/rectangle_union_area.md)・[いもすと走査線の比較](rectangle-union-area.md) | 座標圧縮は自動、面積の範囲 |
 | 上限以下の多数の値の素数判定・素因数分解・約数列挙 | [PrimeUtil](../library/math/prime_util.md) | 表の上限とメモリ、入力範囲 |
 | 単発の素因数分解・約数列挙や素数表 | [試し割りと素数表](../library/math/trial_division.md) | 正の整数、試し割りの計算量 |
 | 整数除算の切り上げ・切り下げ | [整数除算の丸め](../library/math/integer_division.md) | 負の除数、0 除算、型の限界 |
@@ -57,6 +62,12 @@
 | 部分文字列の比較・結合・共通接頭辞 | [ローリングハッシュ](../library/string/rolling_hash.md) | 衝突、同じ base、バイト単位 |
 
 必要な操作が表になければ、各部品の条件と計算量、外部依存、既存 API を調べてから追加します。名前が似ていても点更新と区間更新など対応機能は同じとは限りません。
+
+## 他ライブラリとの機能比較と今後の候補
+
+[ACL](https://atcoder.github.io/ac-library/production/document_ja/index.html) と [Nyaan's Library の一覧](https://nyaannyaan.github.io/library/) を機能の観点で確認しました。ACL の Fenwick Tree・強連結成分分解・最大流・2-SAT などは ACL が利用可能なら直接使えます。Wavelet Matrix や区間クエリ用 Mo は本ライブラリにあります。
+
+現状の追加候補には、固定幅を含むキュー上の非可換 Monoid 集約（Sliding Window Aggregation）、冪等な演算の静的区間取得（Sparse Table）、取り消し可能 Union-Find とオフライン動的連結性があります。それぞれ用途・必要条件・検証先を確認してから選びます。最長増加部分列は二分探索による典型的な解法があるため、必要な復元や厳密増加・非減少の仕様を決めてから独立部品にするか判断します。
 
 入力や処理を埋める二分探索・順列・格子方向のスニペットは [操作例スニペット](snippet-examples.md) を参照してください。
 

@@ -112,12 +112,25 @@ def main():
                             'library/data_structure/sparse_segtree_2d.md', '', 'class SparseSegtree2D'),
             'dynamic_2d_example': ('library/data_structure/dynamic_segtree_2d.hpp.html',
                             'library/data_structure/dynamic_segtree_2d.md', '', 'class DynamicSegtree2D'),
+            'wavelet_example': ('library/data_structure/wavelet_matrix.hpp.html',
+                            'library/data_structure/wavelet_matrix.md', '', 'class WaveletMatrix'),
+            'integer_segment_example': ('library/geometry/integer_segment.hpp.html',
+                            'library/geometry/integer_segment.md', '', 'struct IntegerSegment'),
+            'real_segment_example': ('library/geometry/real_segment.hpp.html',
+                            'library/geometry/real_segment.md', '', 'struct RealSegment'),
+            'rectangle_area_example': ('library/geometry/rectangle_union_area.hpp.html',
+                            'library/geometry/rectangle_union_area.md', '8\n', 'rectangle_union_area('),
+            'mo_example': ('library/misc/mo.hpp.html', 'library/misc/mo.md', '3\n2\n', 'class Mo'),
+            'inversion_example': ('library/data_structure/inversion_count.hpp.html',
+                                  'library/data_structure/inversion_count.md', '4\n0 1 1 2\n3 0 1 0\n', 'inversion_count('),
         }
         for name, (page, doc, expected, dependency) in examples.items():
             code = bundled(site / page, 'code-body-example')
-            requires_acl = name not in ('convex_contains_example', 'dynamic_2d_example')
+            requires_acl = name in ('euler_example', 'dynamic_example', 'hld_example', 'sparse_2d_example')
             if dependency not in code or (requires_acl and '#include <atcoder/segtree>' not in code):
                 raise ValueError(f'{name}: required dependency or external ACL include missing')
+            if name == 'inversion_example' and '#include <atcoder/fenwicktree>' not in code:
+                raise ValueError(f'{name}: external ACL include missing')
             if name == 'dynamic_2d_example' and re.search(r'^\s*#\s*include\s*<atcoder/', code, re.MULTILINE):
                 raise ValueError(f'{name}: unexpectedly depends on ACL')
             if '#include "library/' in code:

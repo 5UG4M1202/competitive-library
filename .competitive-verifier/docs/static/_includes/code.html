@@ -17,7 +17,7 @@
     {%- endif -%}
     <pre class="hljs {% unless forloop.first %}disable{% endunless %}" id="code-body-{{forloop.index}}"><code class="language-{{include.extension}}">{{ codeBody | xml_escape }}</code></pre>
 {%- endfor -%}
-{%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' or page.data.path == 'library/geometry/integer_convex_contains.hpp' or page.data.path == 'library/data_structure/sparse_segtree_2d.hpp' or page.data.path == 'library/data_structure/dynamic_segtree_2d.hpp' -%}
+{%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' or page.data.path == 'library/geometry/integer_convex_contains.hpp' or page.data.path == 'library/data_structure/sparse_segtree_2d.hpp' or page.data.path == 'library/data_structure/dynamic_segtree_2d.hpp' or page.data.path == 'library/data_structure/wavelet_matrix.hpp' or page.data.path == 'library/geometry/integer_segment.hpp' or page.data.path == 'library/geometry/real_segment.hpp' or page.data.path == 'library/geometry/rectangle_union_area.hpp' or page.data.path == 'library/misc/mo.hpp' or page.data.path == 'library/data_structure/inversion_count.hpp' -%}
     {%- assign exampleCode = '' -%}
     {%- for source in include.embedded -%}
         {%- if source.name == 'bundled' -%}
@@ -39,6 +39,24 @@
     {%- elsif page.data.path == 'library/data_structure/dynamic_segtree_2d.hpp' -%}
         {%- assign dependency_path = '' -%}
         {%- capture example_main -%}{% include submission_examples/dynamic_segtree_2d.cpp %}{%- endcapture -%}
+    {%- elsif page.data.path == 'library/data_structure/wavelet_matrix.hpp' -%}
+        {%- assign dependency_path = '' -%}
+        {%- capture example_main -%}{% include submission_examples/wavelet_matrix.cpp %}{%- endcapture -%}
+    {%- elsif page.data.path == 'library/geometry/integer_segment.hpp' -%}
+        {%- assign dependency_path = '' -%}
+        {%- capture example_main -%}{% include submission_examples/integer_segment.cpp %}{%- endcapture -%}
+    {%- elsif page.data.path == 'library/geometry/real_segment.hpp' -%}
+        {%- assign dependency_path = '' -%}
+        {%- capture example_main -%}{% include submission_examples/real_segment.cpp %}{%- endcapture -%}
+    {%- elsif page.data.path == 'library/data_structure/inversion_count.hpp' -%}
+        {%- assign dependency_path = '' -%}
+        {%- capture example_main -%}{% include submission_examples/inversion_count.cpp %}{%- endcapture -%}
+    {%- elsif page.data.path == 'library/misc/mo.hpp' -%}
+        {%- assign dependency_path = '' -%}
+        {%- capture example_main -%}{% include submission_examples/mo.cpp %}{%- endcapture -%}
+    {%- elsif page.data.path == 'library/geometry/rectangle_union_area.hpp' -%}
+        {%- assign dependency_path = '' -%}
+        {%- capture example_main -%}{% include submission_examples/rectangle_union_area.cpp %}{%- endcapture -%}
     {%- else -%}
         {%- assign dependency_path = 'library/geometry/integer_convex_hull.hpp' -%}
         {%- capture example_main -%}{% include submission_examples/integer_convex_contains.cpp %}{%- endcapture -%}
@@ -72,7 +90,7 @@
         {%- for source in include.embedded -%}
             <button type="button" class="code-btn code-toggle-btn {% if forloop.first %}selected{% endif %}" data-target="code-body-{{forloop.index}}">{{source.name}}</button>
         {%- endfor -%}
-        {%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' or page.data.path == 'library/geometry/integer_convex_contains.hpp' or page.data.path == 'library/data_structure/sparse_segtree_2d.hpp' or page.data.path == 'library/data_structure/dynamic_segtree_2d.hpp' -%}
+        {%- if page.data.path == 'library/graph/euler_tour.hpp' or page.data.path == 'library/data_structure/dynamic_lazy_segtree.hpp' or page.data.path == 'library/graph/heavy_light_decomposition.hpp' or page.data.path == 'library/geometry/integer_convex_contains.hpp' or page.data.path == 'library/data_structure/sparse_segtree_2d.hpp' or page.data.path == 'library/data_structure/dynamic_segtree_2d.hpp' or page.data.path == 'library/data_structure/wavelet_matrix.hpp' or page.data.path == 'library/geometry/integer_segment.hpp' or page.data.path == 'library/geometry/real_segment.hpp' or page.data.path == 'library/geometry/rectangle_union_area.hpp' or page.data.path == 'library/misc/mo.hpp' or page.data.path == 'library/data_structure/inversion_count.hpp' -%}
             <button type="button" class="code-btn code-toggle-btn" data-target="code-body-example">提出用の利用例</button>
         {%- endif -%}
         </div>

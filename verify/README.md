@@ -3,6 +3,10 @@
 ## Layout
 
 - `local/`: `competitive-verifier: STANDALONE` の決定的ユニットテスト。
+- `local/wavelet_matrix.test.cpp` は全区間と整数端点、`local/segments.test.cpp` は線分の接触・重なり・退化と実数版を検証します。`yosupo/range_kth_smallest.test.cpp` と `yosupo/static_range_frequency.test.cpp` は固定列の区間順位と頻度を対象にします。
+- `local/rectangle_union_area.test.cpp` は重複・境界・面積範囲と素朴な格子比較、`yosupo/area_of_union_of_rectangles.test.cpp` は矩形和集合の公式ケースを対象にします。
+- `local/mo.test.cpp` は左右別操作と転倒数を素朴計算と照合し、`yosupo/static_range_count_distinct.test.cpp` は静的区間内の異なる値の数で Mo を検証します。更新付きクエリは対象外です。
+- `local/inversion_count.test.cpp` は列全体の転倒数を重複値・逆順比較を含めて素朴計算と照合します。`aoj/inversion_count.test.cpp` は AOJ の ALDS1_5_D に対応します。
 - `local/rational128.test.cpp`: 128 ビット分数の境界・入力・固定 seed のランダム検証。参照値の計算には Boost.Multiprecision を使い、ヘッダー本体には Boost を含めません。
 - `local/segtree_2d.test.cpp`: 二次元セグメント木の矩形集約・上書きを素朴実装と比較し、重複・極端な整数範囲・分数座標や値も検証します。
 - `yosupo/`: 対応する Library Checker の問題を使う judge-backed test。HLD の非可換な頂点パス集約と部分木和、重み付き Union-Find の合同差分、双対セグメント木の区間更新・一点取得、動的遅延セグメント木の区間一次変換・区間和を検証します。

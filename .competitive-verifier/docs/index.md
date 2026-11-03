@@ -6,8 +6,13 @@
 
 ## 収録内容
 
+- [ACL の代表的な機能]({{ '/acl-usage.html' | relative_url }}): Fenwick Tree・強連結成分分解・2-SAT の利用例
 - [N 次元の点]({{ '/library/geometry/point.hpp.html' | relative_url }}): 整数・実数座標と次元別の基本演算
 - [整数点と偏角]({{ '/library/geometry/integer_point.hpp.html' | relative_url }}): 向き・内積・外積と偏角順。ゼロと整数範囲に注意
+- [整数座標の線分と直線]({{ '/library/geometry/integer_segment.hpp.html' | relative_url }}): 交差・重なり・分数交点
+- [整数座標の矩形和集合面積]({{ '/library/geometry/rectangle_union_area.hpp.html' | relative_url }}): 座標圧縮を自動で行い重なりを除いて面積を求める
+- [実数座標の線分と直線]({{ '/library/geometry/real_segment.hpp.html' | relative_url }}): 線分交差・射影・距離。EPS と丸めに注意
+- [Wavelet Matrix]({{ '/library/data_structure/wavelet_matrix.hpp.html' | relative_url }}): 固定列の区間順位・頻度・値域個数
 - [整数座標の凸包]({{ '/library/geometry/integer_convex_hull.hpp.html' | relative_url }}): 重複と一直線を扱い、辺上の点を残すか選択
 - [整数凸包への点の包含判定]({{ '/library/geometry/integer_convex_contains.hpp.html' | relative_url }}): 内部・境界・外部を厳密な凸包上で判定
 - [整数点集合の最遠点対]({{ '/library/geometry/integer_farthest_pair.hpp.html' | relative_url }}): 元の点番号と距離の二乗を取得
@@ -29,6 +34,7 @@
 - [整数除算の丸め]({{ '/library/math/integer_division.hpp.html' | relative_url }}): 正負の除数で切り上げ・切り下げ
 - [128 ビット整数の分数]({{ '/library/math/rational128.hpp.html' | relative_url }}): 約分・比較・四則演算。範囲外とゼロ除算に注意
 - [座標圧縮]({{ '/library/data_structure/coord_compressor.hpp.html' | relative_url }}): 複数配列の値の圧縮・復元。再構築時は以前の対応を置換
+- [転倒数]({{ '/library/data_structure/inversion_count.hpp.html' | relative_url }}): 座標圧縮込みで列全体の転倒数を求める
 - [二次元累積和]({{ '/library/data_structure/cumulative_sum_2d.hpp.html' | relative_url }}): 固定格子の矩形和。座標順序と build のタイミングに注意
 - [双対セグメント木]({{ '/library/data_structure/dual_segtree.hpp.html' | relative_url }}): 区間更新と一点取得。作用の合成順序に注意
 - [ダブリング]({{ '/library/graph/doubling.hpp.html' | relative_url }}): 次の頂点が一意の遷移を繰り返す。番兵と最大歩数に注意

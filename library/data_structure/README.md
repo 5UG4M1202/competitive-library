@@ -5,6 +5,8 @@
 | [双対セグメント木](dual_segtree.md) | [dual_segtree.hpp](dual_segtree.hpp) | 区間更新と一点取得 | [local tests](../../verify/local/dual_segtree.test.cpp) |
 | [二次元累積和](cumulative_sum_2d.md) | [cumulative_sum_2d.hpp](cumulative_sum_2d.hpp) | 静的な格子の矩形和 | [local tests](../../verify/local/cumulative_sum_2d.test.cpp) |
 | [座標圧縮](coord_compressor.md) | [coord_compressor.hpp](coord_compressor.hpp) | 複数配列の値をまとめて圧縮・復元 | [local tests](../../verify/local/coord_compressor.test.cpp) |
+| [転倒数](inversion_count.md) | [inversion_count.hpp](inversion_count.hpp) | 座標圧縮を含めて列全体の転倒数を取得 | [local tests](../../verify/local/inversion_count.test.cpp) |
+| [Wavelet Matrix](wavelet_matrix.md) | [wavelet_matrix.hpp](wavelet_matrix.hpp) | 固定列の区間順位・個数・値域検索 | [local tests](../../verify/local/wavelet_matrix.test.cpp) |
 | [Monoid と ACL セグメント木](monoid_segtree.md) | [monoid_segtree.hpp](monoid_segtree.hpp) | 区間和・最小・最大と加算・代入、一次変換 | [local tests](../../verify/local/monoid_segtree.test.cpp) |
 | [座標登録型二次元セグメント木](sparse_segtree_2d.md) | [sparse_segtree_2d.hpp](sparse_segtree_2d.hpp) | 座標を事前登録し矩形集約・一点更新 | [local tests](../../verify/local/segtree_2d.test.cpp) |
 | [動的二次元セグメント木](dynamic_segtree_2d.md) | [dynamic_segtree_2d.hpp](dynamic_segtree_2d.hpp) | 固定整数範囲内でオンライン点追加・矩形集約 | [local tests](../../verify/local/segtree_2d.test.cpp) |
