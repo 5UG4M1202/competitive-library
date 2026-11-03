@@ -16,6 +16,6 @@ description: Add, repair, or assess competitive-programming library tests and co
 
 Check that the component documentation and use-case navigation link to the relevant verification and describe the coverage and its limits; report gaps in the current verification scope.
 
-For a copyable multi-header submission example, verify the generated page's actual copyable code compiles as one translation unit, runs with the documented output, retains external includes, and has no unresolved project includes. Keep the example and its documentation synchronized.
+For a copyable submission example, including a single-header example combined with `main()`, verify the generated page's actual copyable code compiles as one translation unit, runs with the documented behavior, retains required external includes, and has no unresolved project includes. Keep the example and its documentation synchronized. For Monoid APIs, test the stated laws on representative valid states, boundary cases and integration; examples cannot prove the laws for all inputs.
 
 Do not install verification tools, enable Pages, change settings, modify unresolved snippet entries or the external live snippet, or publish without separate explicit authorization.

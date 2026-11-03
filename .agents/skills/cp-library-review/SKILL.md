@@ -14,4 +14,6 @@ description: Review or audit competitive-programming library code for correctnes
 
 Check whether users can discover the component from their task and understand when to choose it over alternatives, including examples, dependencies, ownership, limits, and verification. Report material gaps without changing files during a read-only review.
 
+For submission-facing examples, distinguish a bundled header from a complete runnable submission and inspect the rendered copyable example and its verification. For algebraic APIs, assess whether required laws, operation order, identities, value ranges and examples match each supported data structure.
+
 Do not modify code, tests, `cpp.json`, history, or external state unless the user separately requests a specific fix or action.

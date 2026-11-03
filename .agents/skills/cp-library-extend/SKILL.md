@@ -17,4 +17,6 @@ When an extension adds a new use case or changes selection criteria, update `doc
 
 For every kind of component, keep the route from a user's task to the appropriate API clear. Review examples, alternatives, prerequisites, ownership, limitations, and verification links when behavior or suitability changes.
 
+When changing submission-facing examples, check that the rendered copyable example includes the needed project code, keeps external dependencies explicit, compiles as one translation unit, and exhibits the documented behavior. For Monoid definitions, cover applicable laws and representative integration, and keep the Monoid guide in sync.
+
 Do not blanket-regenerate unresolved entries or modify the live VS Code snippet. Do not publish or change repository settings without separate explicit authorization.

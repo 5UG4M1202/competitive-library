@@ -16,4 +16,8 @@ Update `docs/library-guide.md`, category navigation, and the verifier site entry
 
 Treat discoverability as a general requirement for every component, not only algebraic or complex structures: identify the user's task, compare relevant alternatives, and make limitations, ownership, example inputs/outputs, and links to verification easy to find.
 
+For Monoid or action APIs, explain how to choose state, combination and identity; state the required algebraic laws, order, numerical domain and exception behavior, and link the Monoid guide. Show an executable representative definition and cover its laws and integration with the actual structure.
+
+For submission-facing examples, identify required local and external dependencies. When users need to combine code, provide a copyable complete example where practical and validate the rendered copyable code as one translation unit, including its expected behavior; do not treat header-only syntax checking as example verification.
+
 Do not create a new `cpp.json` entry unless the task requests one. If an established maintained mapping already exists, follow the repository synchronization policy; never modify unrelated entries or the external live snippet. Do not install tools or publish repository changes unless the user separately authorizes that exact action.
