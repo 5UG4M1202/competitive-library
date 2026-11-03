@@ -43,6 +43,7 @@
   - `python3 tools/test_next_combination_snippet.py`
   - `python3 tools/test_doc_navigation.py`
   - `python3 tools/test_segtree_examples.py` (AtCoder Library の include path が必要)
+  - `python3 tools/test_monoid_guide.py` (AtCoder Library の include path が必要)
   - `powershell -ExecutionPolicy Bypass -File tools/run_local_tests.ps1`
   - when `competitive-verifier` is already installed: `bash tools/run_verifier.sh`; it writes resolve, verify, and generated documentation outputs to a temporary directory by default.
 - Do not install tools, push, open a PR, publish a Release, enable Pages, or change repository/account settings unless the user explicitly requests that action.

@@ -2,7 +2,7 @@
 
 各ライブラリのコード欄では `default` が元のヘッダー、`bundled` が自作ヘッダーの依存を展開した表示です。選択中のコードを `Copy` でコピーできます。外部ライブラリの `#include` は残ります。ライブラリ本体に含まれない利用例の部品は別途必要な場合があるため、各ページの説明も確認してください。テストページのコードは提出用の解答ではありません。
 
-複数ヘッダーを組み合わせる利用例には、必要な自作コードと `main()` をまとめた「提出用の利用例」も用意しています。例の出力と必要な外部ライブラリを確認し、`main()` を問題に合わせて変更してください。
+対応する利用例には、必要な自作コードと `main()` をまとめた「提出用の利用例」も用意しています。例の結果と必要な外部ライブラリを確認し、`main()` を問題に合わせて変更してください。
 
 ## 収録内容
 
@@ -20,10 +20,14 @@
 - [実数点集合の最近点対]({{ '/library/geometry/real_closest_pair.hpp.html' | relative_url }}): long double による近似
 - [実数点集合の最遠点対]({{ '/library/geometry/real_farthest_pair.hpp.html' | relative_url }}): long double による近似
 - [Monoid と ACL セグメント木]({{ '/library/data_structure/monoid_segtree.hpp.html' | relative_url }}): 区間和・最小・最大、gcd・bitwise・最小値の回数、区間加算・代入・一次変換。初期値と数値範囲に注意
+- [Monoid 定義ガイド]({{ '/library/data_structure/monoid_segtree.hpp.html#monoid-定義ガイド' | relative_url }}): 値・結合・単位元の決め方、可換性、二次元木での利用
 - [動的遅延セグメント木]({{ '/library/data_structure/dynamic_lazy_segtree.hpp.html' | relative_url }}): 広い整数座標での区間更新・集約。初期集約、メモリ所有権、未確認の来歴に注意
+- [座標登録型二次元セグメント木]({{ '/library/data_structure/sparse_segtree_2d.hpp.html' | relative_url }}): 更新座標を事前登録して矩形集約
+- [動的二次元セグメント木]({{ '/library/data_structure/dynamic_segtree_2d.hpp.html' | relative_url }}): 固定整数範囲内でオンライン点追加と矩形集約。メモリ量に注意
 - [PrimeUtil]({{ '/library/math/prime_util.hpp.html' | relative_url }}): 上限以下の多数の値の素数判定・素因数分解・約数列挙
 - [試し割りと素数表]({{ '/library/math/trial_division.hpp.html' | relative_url }}): 単発の素因数分解・約数列挙とふるい
 - [整数除算の丸め]({{ '/library/math/integer_division.hpp.html' | relative_url }}): 正負の除数で切り上げ・切り下げ
+- [128 ビット整数の分数]({{ '/library/math/rational128.hpp.html' | relative_url }}): 約分・比較・四則演算。範囲外とゼロ除算に注意
 - [座標圧縮]({{ '/library/data_structure/coord_compressor.hpp.html' | relative_url }}): 複数配列の値の圧縮・復元。再構築時は以前の対応を置換
 - [二次元累積和]({{ '/library/data_structure/cumulative_sum_2d.hpp.html' | relative_url }}): 固定格子の矩形和。座標順序と build のタイミングに注意
 - [双対セグメント木]({{ '/library/data_structure/dual_segtree.hpp.html' | relative_url }}): 区間更新と一点取得。作用の合成順序に注意

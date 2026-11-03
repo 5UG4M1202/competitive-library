@@ -30,6 +30,11 @@ jobs:
           echo "ACL_INCLUDE_PATH=$GITHUB_WORKSPACE/.third_party/ac-library" >> "$GITHUB_ENV"
           echo "CPLUS_INCLUDE_PATH=$GITHUB_WORKSPACE/.third_party/ac-library" >> "$GITHUB_ENV"
 
+      - name: Install Boost headers for verification
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libboost-dev
+
       - name: Set up competitive-verifier
         uses: competitive-verifier/actions/setup@v2
         with:
@@ -73,6 +78,7 @@ jobs:
           python3 tools/test_next_combination_snippet.py
           python3 tools/test_doc_navigation.py
           python3 tools/test_segtree_examples.py
+          python3 tools/test_monoid_guide.py
 
       - name: Resolve verification files
         id: resolve

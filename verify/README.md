@@ -3,6 +3,8 @@
 ## Layout
 
 - `local/`: `competitive-verifier: STANDALONE` の決定的ユニットテスト。
+- `local/rational128.test.cpp`: 128 ビット分数の境界・入力・固定 seed のランダム検証。参照値の計算には Boost.Multiprecision を使い、ヘッダー本体には Boost を含めません。
+- `local/segtree_2d.test.cpp`: 二次元セグメント木の矩形集約・上書きを素朴実装と比較し、重複・極端な整数範囲・分数座標や値も検証します。
 - `yosupo/`: 対応する Library Checker の問題を使う judge-backed test。HLD の非可換な頂点パス集約と部分木和、重み付き Union-Find の合同差分、双対セグメント木の区間更新・一点取得、動的遅延セグメント木の区間一次変換・区間和を検証します。
 - 整数幾何では偏角ソート、凸包、最遠点対、最近点対と矩形和を Library Checker で検証します。凸包の辺上の点を残すモード、凸包への点の包含判定、kd-tree の点更新と他の Monoid はローカルテストで別に検査します。
 - 実数幾何は有限の long double 値を対象にローカル検証します。極小・最大値、偏角比較の順序、退化入力、整数版や全点対との比較、矩形集約の端点と更新を検査します。対応する小数入力の公開問題ではまだ検証していません。
@@ -17,7 +19,7 @@ Library Checker のテストは、verifier が公式問題リポジトリを取�
 
 ## Local setup
 
-必要条件は Python 3.10 以上、C++20 コンパイラ、`competitive-verifier` です。公式の導入元は [competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) で、PyPI package 名も `competitive-verifier` です。CIと次の例は、確認済みの `4.2.2` に固定しています。依存を導入する場合は、system Python ではなく専用 virtual environment を利用してください。
+必要条件は Python 3.10 以上、C++20 コンパイラ、Boost のヘッダー（`rational128` の参照テスト用）、`competitive-verifier` です。Ubuntu では Boost ヘッダーを `libboost-dev` パッケージで導入できます。公式の導入元は [competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) で、PyPI package 名も `competitive-verifier` です。CIと次の例は、確認済みの `4.2.2` に固定しています。依存を導入する場合は、system Python ではなく専用 virtual environment を利用してください。
 
 ```sh
 python3 -m venv /tmp/competitive-library-verifier-venv

@@ -65,6 +65,7 @@ python3 tools/test_misc_snippets.py
 python3 tools/test_next_combination_snippet.py
 python3 tools/test_doc_navigation.py
 python3 tools/test_segtree_examples.py
+python3 tools/test_monoid_guide.py
 
 competitive-verifier oj-resolve \
   --include library verify \

@@ -5,6 +5,7 @@
 | 要件 | 候補 | はじめに確認すること |
 | --- | --- | --- |
 | 点更新・区間集約 | [Monoid と ACL セグメント木](../library/data_structure/monoid_segtree.md) | `op` の順序、単位元、初期値 |
+| Monoid を自分で定義する | [Monoid 定義ガイド](../library/data_structure/monoid_segtree.md#monoid-定義ガイド) | 値・結合・単位元、可換性、テスト |
 | 整数・実数の固定 N 次元点 | [N 次元の点](../library/geometry/point.md) | 座標型・中間型とオーバーフロー |
 | 整数点の向きや偏角順 | [整数点と偏角](../library/geometry/integer_point.md) | 軸・ゼロ・同方向と中間結果の範囲 |
 | 整数点集合の凸包 | [整数座標の凸包](../library/geometry/integer_convex_hull.md) | 重複点、辺上の点を残すか、整数の範囲 |
@@ -12,6 +13,8 @@
 | 整数点の最も離れた2点 | [整数点集合の最遠点対](../library/geometry/integer_farthest_pair.md) | 元の添字、重複点、二乗距離の範囲 |
 | 整数点の最も近い2点 | [整数点集合の最近点対](../library/geometry/integer_closest_pair.md) | 元の添字、重複点、二乗距離の範囲 |
 | 固定した整数点の矩形集約・点の値更新 | [矩形集約 kd-tree](../library/geometry/integer_kd_tree.md) | 可換 Monoid、半開矩形、最悪線形 |
+| 事前登録した点の矩形集約を対数二乗で保証 | [座標登録型二次元セグメント木](../library/data_structure/sparse_segtree_2d.md) | ACL、可換 Monoid、`O(N log N)` 空間 |
+| 固定整数範囲に後から点を追加して矩形集約 | [動的二次元セグメント木](../library/data_structure/dynamic_segtree_2d.md) | 未知座標可、上端は含まない、メモリ量に注意 |
 | 固定した実数座標の矩形集約・点の値更新 | [実数座標の矩形集約 kd-tree](../library/geometry/real_kd_tree.md) | 有限座標、丸め、半開矩形 |
 | 固定した点の最近傍・矩形内の点番号列挙 | [整数 KD-tree](../library/geometry/integer_kd_tree.md)・[実数 KD-tree](../library/geometry/real_kd_tree.md) | 番号、半開境界、同距離、最悪線形 |
 | 実数点の向きや偏角順 | [実数点と偏角](../library/geometry/real_point.md) | EPS、丸め、比較順 |
@@ -34,6 +37,7 @@
 | 上限以下の多数の値の素数判定・素因数分解・約数列挙 | [PrimeUtil](../library/math/prime_util.md) | 表の上限とメモリ、入力範囲 |
 | 単発の素因数分解・約数列挙や素数表 | [試し割りと素数表](../library/math/trial_division.md) | 正の整数、試し割りの計算量 |
 | 整数除算の切り上げ・切り下げ | [整数除算の丸め](../library/math/integer_division.md) | 負の除数、0 除算、型の限界 |
+| 整数比の分数を比較・四則演算 | [128 ビット整数の分数](../library/math/rational128.md) | 途中計算のオーバーフロー、ゼロ除算、近似変換 |
 | 根付き木の LCA・パス・部分木 | [EulerTour](../library/graph/euler_tour.md) | 木の構築、重みと区間の扱い |
 | 非可換なパス集約・方向別の辺の値 | [重軽分解](../library/graph/heavy_light_decomposition.md) | 根、頂点・辺、往復の値、結合順序 |
 | 次の頂点が一意の遷移を繰り返す | [ダブリング](../library/graph/doubling.md) | 行き止まりの番兵、最大歩数と構築するビット数 |

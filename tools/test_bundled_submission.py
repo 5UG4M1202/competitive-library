@@ -108,11 +108,18 @@ def main():
                             'library/graph/heavy_light_decomposition.md', '', 'class HeavyLightDecomposition'),
             'convex_contains_example': ('library/geometry/integer_convex_contains.hpp.html',
                             'library/geometry/integer_convex_contains.md', '', 'convex_hull('),
+            'sparse_2d_example': ('library/data_structure/sparse_segtree_2d.hpp.html',
+                            'library/data_structure/sparse_segtree_2d.md', '', 'class SparseSegtree2D'),
+            'dynamic_2d_example': ('library/data_structure/dynamic_segtree_2d.hpp.html',
+                            'library/data_structure/dynamic_segtree_2d.md', '', 'class DynamicSegtree2D'),
         }
         for name, (page, doc, expected, dependency) in examples.items():
             code = bundled(site / page, 'code-body-example')
-            if dependency not in code or (name != 'convex_contains_example' and '#include <atcoder/segtree>' not in code):
+            requires_acl = name not in ('convex_contains_example', 'dynamic_2d_example')
+            if dependency not in code or (requires_acl and '#include <atcoder/segtree>' not in code):
                 raise ValueError(f'{name}: required dependency or external ACL include missing')
+            if name == 'dynamic_2d_example' and re.search(r'^\s*#\s*include\s*<atcoder/', code, re.MULTILINE):
+                raise ValueError(f'{name}: unexpectedly depends on ACL')
             if '#include "library/' in code:
                 raise ValueError(f'{name}: local include was not expanded')
             if normalized_example(documented_example(root / doc)) not in normalized_example(code):
@@ -124,7 +131,7 @@ def main():
             result = subprocess.run([str(binary)], check=True, text=True, capture_output=True)
             if result.stdout != expected:
                 raise ValueError(f'{name}: unexpected output {result.stdout!r}')
-    print('bundled libraries and complete EulerTour/dynamic segtree/HLD/geometry examples passed')
+    print('bundled libraries and complete EulerTour/dynamic segtree/HLD/geometry/2D examples passed')
 
 
 if __name__ == '__main__':

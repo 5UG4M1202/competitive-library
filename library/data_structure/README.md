@@ -6,6 +6,8 @@
 | [二次元累積和](cumulative_sum_2d.md) | [cumulative_sum_2d.hpp](cumulative_sum_2d.hpp) | 静的な格子の矩形和 | [local tests](../../verify/local/cumulative_sum_2d.test.cpp) |
 | [座標圧縮](coord_compressor.md) | [coord_compressor.hpp](coord_compressor.hpp) | 複数配列の値をまとめて圧縮・復元 | [local tests](../../verify/local/coord_compressor.test.cpp) |
 | [Monoid と ACL セグメント木](monoid_segtree.md) | [monoid_segtree.hpp](monoid_segtree.hpp) | 区間和・最小・最大と加算・代入、一次変換 | [local tests](../../verify/local/monoid_segtree.test.cpp) |
+| [座標登録型二次元セグメント木](sparse_segtree_2d.md) | [sparse_segtree_2d.hpp](sparse_segtree_2d.hpp) | 座標を事前登録し矩形集約・一点更新 | [local tests](../../verify/local/segtree_2d.test.cpp) |
+| [動的二次元セグメント木](dynamic_segtree_2d.md) | [dynamic_segtree_2d.hpp](dynamic_segtree_2d.hpp) | 固定整数範囲内でオンライン点追加・矩形集約 | [local tests](../../verify/local/segtree_2d.test.cpp) |
 | [動的遅延セグメント木](dynamic_lazy_segtree.md) | [dynamic_lazy_segtree.hpp](dynamic_lazy_segtree.hpp) | 広い整数座標で区間更新・集約・境界探索 | [local tests](../../verify/local/dynamic_lazy_segtree.test.cpp) |
 | [`LazyReversibleRBST`](lazy_reversible_rbst.md) | [`lazy_reversible_rbst.hpp`](lazy_reversible_rbst.hpp) | 動的列の挿入・削除・区間集約・作用・反転 | [local tests](../../verify/local/) |
 | [`IntervalSet`](interval_set.md) | [`interval_set.hpp`](interval_set.hpp) | 値付き半開区間 `[l, r)` の上書き・分割・結合 | [local tests](../../verify/local/) |
