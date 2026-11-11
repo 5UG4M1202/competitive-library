@@ -23,6 +23,7 @@ def main():
         raise ValueError('predicate placeholder missing or duplicated')
     snippet = snippet.replace(marker, 'mid >= threshold')
     source = '''#include <cassert>
+#include <cstdlib>
 #include <limits>
 #include <numeric>
 #include <vector>
