@@ -27,6 +27,7 @@ int main() {
   seg.set(2, 5);
   assert(seg.prod(0, 4) == 8 && seg.prod(1, 2) == 0);
 }
+
 ''',
     '@segtree_lazy': '''
 int main() {
@@ -81,6 +82,39 @@ int main() {
 }
 ''',
 }
+
+
+def extrema_case(is_min):
+    which = 'min_element' if is_min else 'max_element'
+    return '''
+int main() {
+  S empty = e();
+  assert(empty.size == 0 && mapping(7, empty).size == 0);
+  assert(op(empty, {LLONG_MIN, 1}).value == LLONG_MIN);
+  assert(op({LLONG_MAX, 1}, empty).value == LLONG_MAX);
+  vector<ll> a{3, -2, 5, -2, 0};
+  vector<S> initial;
+  for (ll x : a) initial.push_back({x, 1});
+  LazySegtree seg(initial);
+  mt19937 rng(5413);
+  for (int step = 0; step < 800; ++step) {
+    int l = rng() % 6, r = rng() % 6;
+    if (l > r) swap(l, r);
+    ll delta = static_cast<int>(rng() % 21) - 10;
+    seg.apply(l, r, delta);
+    for (int i = l; i < r; ++i) a[i] += delta;
+    for (int x = 0; x <= 5; ++x) for (int y = x; y <= 5; ++y) {
+      S result = seg.prod(x, y);
+      assert(result.size == y - x);
+      if (x != y) assert(result.value == *WHICH(a.begin() + x, a.begin() + y));
+    }
+  }
+}
+'''.replace('WHICH', which)
+
+
+CASES['@segtree_lazy_min'] = extrema_case(True)
+CASES['@segtree_lazy_max'] = extrema_case(False)
 
 
 def main():

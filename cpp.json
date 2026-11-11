@@ -1654,6 +1654,56 @@
 		],
 		"description": "segtree_lazy"
 	},
+	"@segtree_lazy_min": {
+		"prefix": "@segtree_lazy_min",
+		"body": [
+			"// clang-format off",
+			"// 区間加算・区間最小値。各要素は {値, 1} で初期化する。",
+			"// 参考: https://betrue12.hateblo.jp/entry/2020/09/23/005940",
+			"// 利用条件は THIRD_PARTY_NOTICES.md を参照。",
+			"struct S { ll value, size; };",
+			"using F = ll;",
+			"S op(S a, S b) {",
+			"  if (a.size == 0) return b;",
+			"  if (b.size == 0) return a;",
+			"  return {min(a.value, b.value), a.size + b.size};",
+			"}",
+			"S e() { return {0, 0}; } // 空区間は size == 0",
+			"S mapping(F f, S x) { if (x.size != 0) x.value += f; return x; }",
+			"F composition(F f, F g) { return f + g; }",
+			"F id() { return 0; }",
+			"using LazySegtree = lazy_segtree<S, op, e, F, mapping, composition, id>;",
+			"// main内: LazySegtree seg(vector<S>(N, {0, 1}));",
+			"// 区間最小値: seg.prod(l, r).value。空区間は size == 0。",
+			"// clang-format on"
+		],
+		"description": "区間加算・区間最小値"
+	},
+	"@segtree_lazy_max": {
+		"prefix": "@segtree_lazy_max",
+		"body": [
+			"// clang-format off",
+			"// 区間加算・区間最大値。各要素は {値, 1} で初期化する。",
+			"// 参考: https://betrue12.hateblo.jp/entry/2020/09/23/005940",
+			"// 利用条件は THIRD_PARTY_NOTICES.md を参照。",
+			"struct S { ll value, size; };",
+			"using F = ll;",
+			"S op(S a, S b) {",
+			"  if (a.size == 0) return b;",
+			"  if (b.size == 0) return a;",
+			"  return {max(a.value, b.value), a.size + b.size};",
+			"}",
+			"S e() { return {0, 0}; } // 空区間は size == 0",
+			"S mapping(F f, S x) { if (x.size != 0) x.value += f; return x; }",
+			"F composition(F f, F g) { return f + g; }",
+			"F id() { return 0; }",
+			"using LazySegtree = lazy_segtree<S, op, e, F, mapping, composition, id>;",
+			"// main内: LazySegtree seg(vector<S>(N, {0, 1}));",
+			"// 区間最大値: seg.prod(l, r).value。空区間は size == 0。",
+			"// clang-format on"
+		],
+		"description": "区間加算・区間最大値"
+	},
 	"@segtree_normal": {
 		"prefix": "@segtree_normal",
 		"body": [
