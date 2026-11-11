@@ -61,7 +61,7 @@
 
 `@mos` は 1-indexed 閉区間を入力する操作記入用の例であり、`library/misc/mo.hpp` の独立 API とは別に管理します。`python3 tools/test_mos_snippet.py` は例に区間和の操作を埋めて入力変換・端点移動・ゼロ件を検査します。独立 API は `verify/local/mo.test.cpp` で左右の操作順を検証します。
 
-`@meguru` は predicate を埋める C++20 の二分探索例として管理し、`python3 tools/test_meguru_snippet.py` で端点の差によるオーバーフロー回避を検査します。順列・組合せ・格子方向の例と合わせて [`snippet-examples.md`](snippet-examples.md) に依存と前提を記載します。
+`@meguru` は predicate を埋める C++20 の二分探索例として管理し、`python3 tools/test_meguru_snippet.py` で安全な整数範囲と許容幅を変更した小数探索を検査します。端点の差とその絶対値が型の範囲に収まることが前提です。順列・組合せ・格子方向の例と合わせて [`snippet-examples.md`](snippet-examples.md) に依存と前提を記載します。
 
 `scan` / `in` と両テンプレートの `out_c` / `out_c_pairs` は snippet 内で保守し、`python3 tools/test_template_io_snippet.py` で入れ子入力・失敗時の挙動と出力を検査します。マクロは `python3 tools/test_template_macros.py`、テンプレート全体は ACL の include path を設定した `python3 tools/test_template_full_expansion.py` で展開・実行を検査します。依存と前提は [`template-usage.md`](template-usage.md) を参照してください。
 

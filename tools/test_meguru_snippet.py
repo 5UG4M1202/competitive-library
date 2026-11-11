@@ -35,7 +35,8 @@ ll search(ll N, ll threshold) {
 int main() {
   for (ll n = 0; n <= 1000; ++n)
     for (ll t = 0; t <= n; ++t) assert(search(n, t) == t);
-  ll hi = numeric_limits<ll>::max();
+  // ng = -1: hi - ng must remain representable in ll.
+  ll hi = numeric_limits<ll>::max() - 1;
   for (ll t : vector<ll>{0, 1, 2, hi / 2, hi - 1, hi}) assert(search(hi, t) == t);
 }
 '''
@@ -45,7 +46,29 @@ int main() {
         subprocess.run(shlex.split(os.environ.get('CXX', 'g++')) +
                        ['-std=c++20', '-O2', str(path), '-o', str(binary)], check=True)
         subprocess.run([str(binary)], check=True)
-    print('@meguru: expansion passes exhaustive small and long-long boundary tests')
+        condition = 'while (abs(ok - ng) > 1) {'
+        if snippet.count(condition) != 1:
+            raise ValueError('the editable integer stopping width is missing')
+        for epsilon in ('1e-5L', '1e-30L'):
+            real = snippet.replace('ll ', 'long double ').replace(condition, f'while (abs(ok - ng) > {epsilon}) {{')
+            real = real.replace('mid >= threshold', 'mid * mid >= 2')
+            real_source = '''#include <cassert>
+#include <cmath>
+#include <numeric>
+using namespace std;
+int main() {
+  long double N = 2;
+''' + real + '''
+  assert(ok * ok >= 2);
+  assert(ng < 0 || ng * ng < 2);
+  assert(abs(ok - sqrtl(2.0L)) < 1e-5L);
+}
+'''
+            path.write_text(real_source, encoding='utf-8')
+            subprocess.run(shlex.split(os.environ.get('CXX', 'g++')) +
+                           ['-std=c++20', '-O2', str(path), '-o', str(binary)], check=True)
+            subprocess.run([str(binary)], check=True, timeout=5)
+    print('@meguru: integer boundaries and adjustable floating-point precision pass')
 
 
 if __name__ == '__main__':
